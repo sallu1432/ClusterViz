@@ -33,7 +33,7 @@ const ScatterPlot2D = ({ data }: ScatterPlot2DProps) => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="h-[400px] w-full">
+        <div className="h-[500px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <ScatterChart
               margin={{
