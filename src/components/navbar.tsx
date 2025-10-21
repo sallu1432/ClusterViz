@@ -95,12 +95,11 @@ export function Navbar({ params, dispatch, onRunClustering, isPending, showExtra
                   </div>
                 </SelectTrigger>
                 <SelectContent>
-                  {Object.entries(DATASETS).map(([key, { name, domain }]) => (
+                  {Object.entries(DATASETS).map(([key, { name }]) => (
                     <SelectItem key={key} value={key}>
                       <div className="flex items-center gap-2">
                         {datasetIcons[key as keyof typeof DATASETS]}
                         <span>{name}</span>
-                        <span className="ml-2 text-xs text-muted-foreground">{domain}</span>
                       </div>
                     </SelectItem>
                   ))}
