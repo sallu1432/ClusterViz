@@ -11,12 +11,6 @@ export const DATASETS = {
     description: "A dataset containing the results of a chemical analysis of wines grown in the same region in Italy but derived from three different cultivars.",
     features: ["alcohol", "malic_acid", "ash", "alcalinity_of_ash", "magnesium", "total_phenols", "flavanoids", "nonflavanoid_phenols", "proanthocyanins", "color_intensity", "hue", "od280/od315_of_diluted_wines", "proline"],
   },
-  digits: {
-    name: "Digits",
-    domain: "🔢 Image / Pattern Recognition",
-    description: "A dataset of hand-written digits. Each datapoint is a 8x8 image of a digit.",
-    features: Array.from({ length: 64 }, (_, i) => `pixel_${i}`),
-  },
   breast_cancer: {
     name: "Breast Cancer",
     domain: "🧬 Medical / Health",

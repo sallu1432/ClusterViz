@@ -80,7 +80,7 @@ export const simulateClustering = (params: SimulationParams): ClusteringResults 
   const { dataset, nClusters, features } = params;
   const datasetInfo = DATASETS[dataset];
 
-  const n_samples = dataset === 'iris' ? 150 : dataset === 'wine' ? 178 : dataset === 'digits' ? 1797 : 357;
+  const n_samples = dataset === 'iris' ? 150 : dataset === 'wine' ? 178 : 357;
   const usedFeatures = features.length > 0 ? features : datasetInfo.features;
   const n_features = usedFeatures.length;
 

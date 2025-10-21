@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { DATASETS, LINKAGE_METHODS, DISTANCE_METRICS } from '@/app/lib/datasets';
-import { Flower2, Grape, Fingerprint, HeartPulse, SlidersHorizontal, Loader2, BrainCircuit } from 'lucide-react';
+import { Flower2, Grape, HeartPulse, SlidersHorizontal, Loader2, BrainCircuit } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Checkbox } from './ui/checkbox';
 import { ScrollArea } from './ui/scroll-area';
@@ -38,7 +38,6 @@ type NavbarProps = {
 const datasetIcons = {
   iris: <Flower2 className="h-4 w-4" />,
   wine: <Grape className="h-4 w-4" />,
-  digits: <Fingerprint className="h-4 w-4" />,
   breast_cancer: <HeartPulse className="h-4 w-4" />,
 };
 
