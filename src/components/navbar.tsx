@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { DATASETS, LINKAGE_METHODS, DISTANCE_METRICS } from '@/app/lib/datasets';
-import { Flower2, Grape, HeartPulse, SlidersHorizontal, Loader2, BrainCircuit } from 'lucide-react';
+import { Flower2, Grape, HeartPulse, SlidersHorizontal, Loader2 } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Checkbox } from './ui/checkbox';
 import { ScrollArea } from './ui/scroll-area';
@@ -56,7 +56,6 @@ export function Navbar({ params, dispatch, onRunClustering, isPending, showExtra
         <div className="flex h-14 items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
-              <BrainCircuit className="h-7 w-7 text-primary" />
               <h1 className="text-2xl font-bold tracking-tight">ClusterViz</h1>
             </div>
             <Separator orientation="vertical" className="h-8" />
