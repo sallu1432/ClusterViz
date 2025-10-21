@@ -49,9 +49,11 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
                   <Tooltip key={`${i}-${j}`} delayDuration={100}>
                     <TooltipTrigger asChild>
                       <div
-                        className="w-full h-full rounded-sm transition-transform duration-200 ease-in-out hover:scale-125 hover:z-10"
+                        className="w-full h-full rounded-sm transition-transform duration-200 ease-in-out hover:scale-125 hover:z-10 flex items-center justify-center"
                         style={{ backgroundColor: getColor(value), border: '1px solid hsl(var(--background))' }}
-                      />
+                      >
+                         <span className="text-xs font-mono text-foreground/80">{value?.toFixed(2)}</span>
+                      </div>
                     </TooltipTrigger>
                     <TooltipContent>
                       <p className="font-medium">{features[i]} &amp; {features[j]}: <span className="font-mono">{value?.toFixed(3) ?? 'N/A'}</span></p>
