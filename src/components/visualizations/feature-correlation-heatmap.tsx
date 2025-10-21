@@ -11,10 +11,10 @@ interface FeatureCorrelationHeatmapProps {
 
 const getColor = (value: number | null) => {
     if (value === null) return 'hsl(var(--muted))';
-    // Blue (negative) -> White (zero) -> Red (positive)
-    const h = value > 0 ? 0 : 220; // Red for positive, Blue for negative
-    const s = 100;
-    const l = 95 - (Math.abs(value) * 45); // Adjust lightness for more contrast
+    // A more vibrant and perceptually balanced Blue -> White -> Red scale
+    const h = value > 0 ? 10 : 220; // Oranges/Reds for positive, Blues for negative
+    const s = 90;
+    const l = 95 - (Math.abs(value) * 50);
     return `hsl(${h}, ${s}%, ${l}%)`;
 };
 
@@ -31,9 +31,9 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
         <CardTitle>Feature Correlation Heatmap</CardTitle>
         <CardDescription>Shows the Pearson correlation between features. (Max 8 shown).</CardDescription>
       </CardHeader>
-      <CardContent className="flex justify-center items-start p-4">
+      <CardContent className="flex flex-col items-center justify-center p-4 gap-6">
         <TooltipProvider>
-          <div className="relative" style={{ width: `${size * 2.5 + 5}rem`, height: `${size * 2.5 + 5}rem`}}>
+          <div className="w-full max-w-md aspect-square p-10 relative">
             {/* Y-axis labels */}
             {features.map((feature, i) => (
               <div 
@@ -43,7 +43,7 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
                   top: `${(i / size) * 100}%`,
                   height: `${(1 / size) * 100}%`,
                   left: 0,
-                  width: '5rem',
+                  width: '4rem',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'flex-end'
@@ -60,17 +60,21 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
                 key={`x-${feature}`}
                 className="absolute text-xs text-muted-foreground"
                 style={{
-                  left: `${5 + (i / size) * (100 - (5 / (size * 2.5 + 5)) * 100)}%`,
-                  width: `${(1 / size) * (100 - (5 / (size * 2.5 + 5)) * 100)}%`,
-                  top: '-0.5rem',
-                  transform: 'translateY(-100%) rotate(-45deg)',
-                  transformOrigin: 'bottom left',
-                  height: '5rem',
+                  left: `calc(4rem + ${(i / size) * (100% - 4rem)})`,
+                  width: `calc(${(1 / size)} * (100% - 4rem))`,
+                  bottom: '100%',
+                  paddingBottom: '0.5rem',
+                  height: '4rem',
                   display: 'flex',
                   alignItems: 'flex-end',
                 }}
               >
-                <div className="truncate" title={feature}>{feature}</div>
+                <div 
+                  className="truncate origin-bottom-left -rotate-45"
+                  title={feature}
+                >
+                  {feature}
+                </div>
               </div>
             ))}
 
@@ -79,7 +83,7 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
               className="absolute grid gap-px"
               style={{
                 top: 0,
-                left: '5rem',
+                left: '4rem',
                 right: 0,
                 bottom: 0,
                 gridTemplateColumns: `repeat(${size}, 1fr)`,
@@ -91,12 +95,12 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
                   <Tooltip key={`${i}-${j}`} delayDuration={100}>
                     <TooltipTrigger asChild>
                       <div
-                        className="w-full h-full border border-background/20 rounded-sm transition-transform duration-200 ease-in-out hover:scale-110 hover:z-10"
+                        className="w-full h-full border border-background/20 rounded-sm transition-transform duration-200 ease-in-out hover:scale-125 hover:z-10"
                         style={{ backgroundColor: getColor(value) }}
                       />
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p className="font-medium">{features[i]} vs {features[j]}: <span className="font-mono">{value?.toFixed(3) ?? 'N/A'}</span></p>
+                      <p className="font-medium">{features[i]} &amp; {features[j]}: <span className="font-mono">{value?.toFixed(3) ?? 'N/A'}</span></p>
                     </TooltipContent>
                   </Tooltip>
                 ))
@@ -104,6 +108,14 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
             </div>
           </div>
         </TooltipProvider>
+
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <span>-1.0</span>
+          <div className="flex h-3 w-48 rounded-full overflow-hidden border">
+             <div style={{ background: 'linear-gradient(to right, hsl(220, 90%, 45%), hsl(220, 90%, 95%), hsl(10, 90%, 95%), hsl(10, 90%, 45%))' }} className="w-full h-full" />
+          </div>
+          <span>+1.0</span>
+        </div>
       </CardContent>
     </Card>
   );
