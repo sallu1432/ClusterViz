@@ -54,12 +54,13 @@ export function Navbar({ params, dispatch, onRunClustering, isPending, showExtra
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex flex-col gap-4 py-4">
-        <div className="flex h-12 items-center justify-between">
-          <div className="flex items-center gap-3">
-            <BrainCircuit className="h-6 w-6 text-primary" />
-            <h1 className="text-xl font-bold tracking-tight">ClusterViz</h1>
-          </div>
+        <div className="flex h-14 items-center justify-between">
           <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
+              <BrainCircuit className="h-7 w-7 text-primary" />
+              <h1 className="text-2xl font-bold tracking-tight">ClusterViz</h1>
+            </div>
+            <Separator orientation="vertical" className="h-8" />
              <div className="flex items-center gap-2">
                 <Label htmlFor="extra-graphs-toggle" className="text-sm whitespace-nowrap">Show Advanced Views</Label>
                 <Switch
@@ -69,26 +70,26 @@ export function Navbar({ params, dispatch, onRunClustering, isPending, showExtra
                 disabled={isPending}
                 />
             </div>
-            <Button onClick={onRunClustering} disabled={isPending} className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
-              {isPending ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              ) : (
-                <SlidersHorizontal className="mr-2 h-4 w-4" />
-              )}
-              Run Clustering
-            </Button>
           </div>
+          <Button onClick={onRunClustering} disabled={isPending} size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+            {isPending ? (
+              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+            ) : (
+              <SlidersHorizontal className="mr-2 h-5 w-5" />
+            )}
+            Run Clustering
+          </Button>
         </div>
         <Separator />
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 items-end">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-4 items-end">
             <div>
-              <Label htmlFor="dataset" className="text-xs">Dataset</Label>
+              <Label htmlFor="dataset" className="text-xs font-semibold">Dataset</Label>
               <Select
                 value={params.dataset}
                 onValueChange={(value) => dispatch({ type: 'SET_PARAM', payload: { dataset: value } })}
                 disabled={isPending}
               >
-                <SelectTrigger id="dataset" className="h-9">
+                <SelectTrigger id="dataset" className="h-9 mt-1">
                   <div className="flex items-center gap-2">
                     {datasetIcons[params.dataset]}
                     <SelectValue placeholder="Select dataset" />
@@ -109,10 +110,10 @@ export function Navbar({ params, dispatch, onRunClustering, isPending, showExtra
             </div>
             
             <div>
-              <Label className="text-xs">Feature Selection</Label>
+              <Label className="text-xs font-semibold">Feature Selection</Label>
                <Popover>
                 <PopoverTrigger asChild>
-                  <Button variant="outline" className="w-full h-9 justify-start font-normal" disabled={isPending}>
+                  <Button variant="outline" className="w-full h-9 justify-start font-normal mt-1" disabled={isPending}>
                     {params.features.length === 0 ? 'All Features' : `${params.features.length} features selected`}
                   </Button>
                 </PopoverTrigger>
@@ -139,7 +140,7 @@ export function Navbar({ params, dispatch, onRunClustering, isPending, showExtra
             </div>
 
             <div>
-              <Label htmlFor="n_clusters" className="text-xs">Clusters (k): {params.nClusters}</Label>
+              <Label htmlFor="n_clusters" className="text-xs font-semibold">Clusters (k): {params.nClusters}</Label>
               <Slider
                 id="n_clusters"
                 min={2}
@@ -148,17 +149,18 @@ export function Navbar({ params, dispatch, onRunClustering, isPending, showExtra
                 value={[params.nClusters]}
                 onValueChange={([value]) => dispatch({ type: 'SET_PARAM', payload: { nClusters: value } })}
                 disabled={isPending}
+                className="mt-3"
               />
             </div>
 
             <div>
-              <Label htmlFor="linkage" className="text-xs">Linkage Method</Label>
+              <Label htmlFor="linkage" className="text-xs font-semibold">Linkage Method</Label>
               <Select
                 value={params.linkage}
                 onValueChange={(value) => dispatch({ type: 'SET_PARAM', payload: { linkage: value } })}
                 disabled={isPending}
               >
-                <SelectTrigger id="linkage" className="h-9">
+                <SelectTrigger id="linkage" className="h-9 mt-1">
                   <SelectValue placeholder="Select linkage" />
                 </SelectTrigger>
                 <SelectContent>
@@ -170,13 +172,13 @@ export function Navbar({ params, dispatch, onRunClustering, isPending, showExtra
             </div>
 
             <div>
-              <Label htmlFor="metric" className="text-xs">Distance Metric</Label>
+              <Label htmlFor="metric" className="text-xs font-semibold">Distance Metric</Label>
               <Select
                 value={params.metric}
                 onValueChange={(value) => dispatch({ type: 'SET_PARAM', payload: { metric: value } })}
                 disabled={isPending}
               >
-                <SelectTrigger id="metric" className="h-9">
+                <SelectTrigger id="metric" className="h-9 mt-1">
                   <SelectValue placeholder="Select metric" />
                 </SelectTrigger>
                 <SelectContent>
