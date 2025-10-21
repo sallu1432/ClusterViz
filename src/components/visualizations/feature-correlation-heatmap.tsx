@@ -1,9 +1,9 @@
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { ClusteringResults } from "@/types";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
 
 interface FeatureCorrelationHeatmapProps {
   data: ClusteringResults['feature_correlation'];
@@ -23,6 +23,7 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
   if (!data || data.matrix.length === 0) return null;
 
   const { features, matrix } = data;
+  const size = features.length;
 
   return (
     <Card>
@@ -30,39 +31,76 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
         <CardTitle>Feature Correlation Heatmap</CardTitle>
         <CardDescription>Shows the Pearson correlation between features. (Max 8 shown).</CardDescription>
       </CardHeader>
-      <CardContent className="flex justify-center items-center">
+      <CardContent className="flex justify-center items-start p-4">
         <TooltipProvider>
-          <div className="flex">
-            <div className="flex flex-col text-xs text-muted-foreground pt-10">
-                {features.map(feature => (
-                    <div key={feature} className="h-10 flex items-center pr-2 truncate font-medium" style={{maxWidth: '80px'}} title={feature}>{feature}</div>
-                ))}
-            </div>
-            <div className="flex flex-col">
-              <div className="flex pl-10">
-                {features.map(feature => (
-                  <div key={feature} className="w-10 h-10 flex items-end justify-center text-xs text-muted-foreground -rotate-45 origin-bottom-left" title={feature}>
-                    <span className="truncate">{feature}</span>
-                  </div>
-                ))}
+          <div className="relative" style={{ width: `${size * 2.5 + 5}rem`, height: `${size * 2.5 + 5}rem`}}>
+            {/* Y-axis labels */}
+            {features.map((feature, i) => (
+              <div 
+                key={`y-${feature}`}
+                className="absolute text-xs text-muted-foreground text-right pr-2 truncate"
+                style={{
+                  top: `${(i / size) * 100}%`,
+                  height: `${(1 / size) * 100}%`,
+                  left: 0,
+                  width: '5rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'flex-end'
+                }}
+                title={feature}
+              >
+                {feature}
               </div>
-              <div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${features.length}, minmax(0, 1fr))` }}>
-                {matrix.map((row, i) =>
-                  row.map((value, j) => (
-                    <Tooltip key={`${i}-${j}`} delayDuration={100}>
-                      <TooltipTrigger asChild>
-                        <div
-                          className="w-10 h-10 border border-background/20 rounded-sm transition-transform duration-200 ease-in-out hover:scale-110 hover:z-10"
-                          style={{ backgroundColor: getColor(value) }}
-                        />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p className="font-medium">{features[i]} vs {features[j]}: <span className="font-mono">{value?.toFixed(3) ?? 'N/A'}</span></p>
-                      </TooltipContent>
-                    </Tooltip>
-                  ))
-                )}
+            ))}
+
+            {/* X-axis labels */}
+            {features.map((feature, i) => (
+              <div 
+                key={`x-${feature}`}
+                className="absolute text-xs text-muted-foreground"
+                style={{
+                  left: `${5 + (i / size) * (100 - (5 / (size * 2.5 + 5)) * 100)}%`,
+                  width: `${(1 / size) * (100 - (5 / (size * 2.5 + 5)) * 100)}%`,
+                  top: '-0.5rem',
+                  transform: 'translateY(-100%) rotate(-45deg)',
+                  transformOrigin: 'bottom left',
+                  height: '5rem',
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                }}
+              >
+                <div className="truncate" title={feature}>{feature}</div>
               </div>
+            ))}
+
+            {/* Heatmap Grid */}
+            <div 
+              className="absolute grid gap-px"
+              style={{
+                top: 0,
+                left: '5rem',
+                right: 0,
+                bottom: 0,
+                gridTemplateColumns: `repeat(${size}, 1fr)`,
+                gridTemplateRows: `repeat(${size}, 1fr)`,
+              }}
+            >
+              {matrix.map((row, i) =>
+                row.map((value, j) => (
+                  <Tooltip key={`${i}-${j}`} delayDuration={100}>
+                    <TooltipTrigger asChild>
+                      <div
+                        className="w-full h-full border border-background/20 rounded-sm transition-transform duration-200 ease-in-out hover:scale-110 hover:z-10"
+                        style={{ backgroundColor: getColor(value) }}
+                      />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className="font-medium">{features[i]} vs {features[j]}: <span className="font-mono">{value?.toFixed(3) ?? 'N/A'}</span></p>
+                    </TooltipContent>
+                  </Tooltip>
+                ))
+              )}
             </div>
           </div>
         </TooltipProvider>
