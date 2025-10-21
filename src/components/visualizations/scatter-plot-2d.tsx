@@ -33,13 +33,13 @@ const ScatterPlot2D = ({ data }: ScatterPlot2DProps) => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="h-[500px] w-full">
+        <div className="h-[600px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <ScatterChart
               margin={{
                 top: 20,
                 right: 30,
-                bottom: 20,
+                bottom: 40,
                 left: 20,
               }}
             >
@@ -48,7 +48,7 @@ const ScatterPlot2D = ({ data }: ScatterPlot2DProps) => {
                 type="number" 
                 dataKey="x" 
                 name="PC1" 
-                label={{ value: 'Principal Component 1', position: 'insideBottom', offset: -10, fill: 'hsl(var(--foreground))' }} 
+                label={{ value: 'Principal Component 1', position: 'insideBottom', offset: -25, fill: 'hsl(var(--foreground))' }} 
                 tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
                 stroke="hsl(var(--border))"
               />
@@ -69,7 +69,7 @@ const ScatterPlot2D = ({ data }: ScatterPlot2DProps) => {
                     borderRadius: "var(--radius)",
                 }}
               />
-              <Legend />
+              <Legend verticalAlign="bottom" wrapperStyle={{ paddingTop: '20px' }}/>
               {clusters.map((clusterId) => (
                 <Scatter
                   key={clusterId}
