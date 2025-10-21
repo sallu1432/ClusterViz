@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -20,11 +21,11 @@ interface ScatterPlot2DProps {
 const ScatterPlot2D = ({ data }: ScatterPlot2DProps) => {
   if (!data || data.length === 0) return null;
 
-  const clusters = [...new Set(data.map((p) => p.cluster))];
+  const clusters = [...new Set(data.map((p) => p.cluster))].sort((a,b) => a - b);
   const chartColors = ["--chart-1", "--chart-2", "--chart-3", "--chart-4", "--chart-5"];
 
   return (
-    <Card>
+    <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
         <CardTitle>2D Cluster Projection (PCA)</CardTitle>
         <CardDescription>
@@ -32,27 +33,51 @@ const ScatterPlot2D = ({ data }: ScatterPlot2DProps) => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="h-[300px] w-full">
+        <div className="h-[400px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <ScatterChart
               margin={{
                 top: 20,
-                right: 20,
+                right: 30,
                 bottom: 20,
                 left: 20,
               }}
             >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis type="number" dataKey="x" name="PC1" label={{ value: 'Principal Component 1', position: 'insideBottom', offset: -10 }} />
-              <YAxis type="number" dataKey="y" name="PC2" label={{ value: 'Principal Component 2', angle: -90, position: 'insideLeft' }} />
-              <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+              <XAxis 
+                type="number" 
+                dataKey="x" 
+                name="PC1" 
+                label={{ value: 'Principal Component 1', position: 'insideBottom', offset: -10, fill: 'hsl(var(--foreground))' }} 
+                tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
+                stroke="hsl(var(--border))"
+              />
+              <YAxis 
+                type="number" 
+                dataKey="y" 
+                name="PC2" 
+                label={{ value: 'Principal Component 2', angle: -90, position: 'insideLeft', fill: 'hsl(var(--foreground))' }}
+                tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
+                stroke="hsl(var(--border))"
+              />
+              <Tooltip 
+                cursor={{ strokeDasharray: "3 3" }} 
+                contentStyle={{
+                    background: "hsl(var(--background) / 0.9)",
+                    borderColor: "hsl(var(--border))",
+                    backdropFilter: "blur(4px)",
+                    borderRadius: "var(--radius)",
+                }}
+              />
               <Legend />
               {clusters.map((clusterId) => (
                 <Scatter
                   key={clusterId}
                   name={`Cluster ${clusterId}`}
                   data={data.filter((p) => p.cluster === clusterId)}
-                  fill={`hsl(var(${chartColors[clusterId % chartColors.length]}))`}
+                  fillOpacity={0.7}
+                  fill={`hsl(var(${chartColors[clusterId % chartColors.length]}))`
+                }
                 />
               ))}
             </ScatterChart>

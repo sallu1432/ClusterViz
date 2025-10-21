@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -25,7 +26,7 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
   const size = features.length;
 
   return (
-    <Card>
+    <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
         <CardTitle>Feature Correlation Heatmap</CardTitle>
         <CardDescription>Shows the Pearson correlation between features. (Max 8 shown).</CardDescription>

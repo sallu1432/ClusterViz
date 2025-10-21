@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useReducer, useTransition, useCallback } from "react";
@@ -95,7 +96,7 @@ export function Dashboard() {
   }, [state.params, toast]);
 
   return (
-    <div>
+    <div className="bg-background">
       <Navbar
         params={state.params}
         dispatch={dispatch}
@@ -104,22 +105,22 @@ export function Dashboard() {
         showExtraGraphs={state.showExtraGraphs}
         onToggleExtraGraphs={() => dispatch({ type: "TOGGLE_EXTRA_GRAPHS" })}
       />
-      <main className="p-4 md:p-6 lg:p-8 space-y-8">
+      <main className="container mx-auto p-4 md:p-6 lg:p-8">
         {isPending && <DashboardSkeleton />}
         {!isPending && !state.results && <WelcomeMessage />}
         {state.results && (
-          <div className="space-y-8">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div className="lg:col-span-2 space-y-6">
-                <DendrogramChart data={state.results.dendrogram} />
-                <ScatterPlot2D data={state.results.scatter_data_2d} />
-              </div>
-              <div className="space-y-6">
-                <DatasetOverview summary={state.results.dataset_summary} />
-                <SilhouettePlot data={state.results.silhouette_scores} />
-              </div>
+          <div className="grid grid-cols-1 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="lg:col-span-1">
+                    <DatasetOverview summary={state.results.dataset_summary} />
+                </div>
+                <div className="lg:col-span-2">
+                    <SilhouettePlot data={state.results.silhouette_scores} />
+                </div>
             </div>
-            
+            <DendrogramChart data={state.results.dendrogram} />
+            <ScatterPlot2D data={state.results.scatter_data_2d} />
+
             <AiClusterInsights
               clusterData={state.results.cluster_summary}
               datasetDescription={state.results.dataset_summary.description}
@@ -129,11 +130,8 @@ export function Dashboard() {
             
             {state.showExtraGraphs && (
               <>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  <ClusterHeatmap data={state.results.cluster_heatmap} />
-                  <FeatureCorrelationHeatmap data={state.results.feature_correlation} />
-                </div>
-                
+                <ClusterHeatmap data={state.results.cluster_heatmap} />
+                <FeatureCorrelationHeatmap data={state.results.feature_correlation} />
                 <FeatureDistributionCharts data={state.results.feature_distributions} />
               </>
             )}
@@ -146,32 +144,28 @@ export function Dashboard() {
 
 const WelcomeMessage = () => (
   <div className="flex flex-col items-center justify-center h-[calc(100vh-200px)] text-center">
-    <div className="p-8 border-2 border-dashed rounded-xl">
-      <h2 className="text-2xl font-bold mb-2">Welcome to ClusterViz</h2>
-      <p className="text-muted-foreground max-w-md">
-        Select a dataset and adjust the parameters in the top panel, then click "Run Clustering" to visualize the results.
+    <div className="p-12 border-2 border-dashed rounded-xl bg-card">
+      <h2 className="text-3xl font-bold mb-3">Welcome to ClusterViz</h2>
+      <p className="text-muted-foreground max-w-md mx-auto">
+        Select a dataset and configure your parameters in the navigation bar above, then click 'Run Clustering' to generate and visualize your analysis.
       </p>
     </div>
   </div>
 );
 
 const DashboardSkeleton = () => (
-  <div className="space-y-8">
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      <div className="lg:col-span-2 space-y-6">
+    <div className="grid grid-cols-1 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <Skeleton className="h-[300px] w-full rounded-lg" />
-        <Skeleton className="h-[300px] w-full rounded-lg" />
+        <Skeleton className="h-[300px] w-full rounded-lg lg:col-span-2" />
       </div>
-      <div className="space-y-6">
+      <Skeleton className="h-[400px] w-full rounded-lg" />
+      <Skeleton className="h-[400px] w-full rounded-lg" />
+      <Skeleton className="h-[250px] w-full rounded-lg" />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <Skeleton className="h-[200px] w-full rounded-lg" />
-        <Skeleton className="h-[384px] w-full rounded-lg" />
+        <Skeleton className="h-[200px] w-full rounded-lg" />
+        <Skeleton className="h-[200px] w-full rounded-lg" />
       </div>
     </div>
-    <Skeleton className="h-[200px] w-full rounded-lg" />
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <Skeleton className="h-[150px] w-full rounded-lg" />
-      <Skeleton className="h-[150px] w-full rounded-lg" />
-      <Skeleton className="h-[150px] w-full rounded-lg" />
-    </div>
-  </div>
-);
+  );
