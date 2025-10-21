@@ -1,13 +1,7 @@
 "use client";
 
 import React, { useReducer, useTransition, useCallback } from "react";
-import {
-  SidebarProvider,
-  Sidebar,
-  SidebarInset,
-} from "@/components/ui/sidebar";
-import { MainHeader } from "@/components/main-header";
-import { ControlPanel } from "@/components/control-panel";
+import { Navbar } from "@/components/navbar";
 import { ClusteringResults } from "@/types";
 import { performClustering } from "@/app/lib/actions";
 import { useToast } from "@/hooks/use-toast";
@@ -101,58 +95,52 @@ export function Dashboard() {
   }, [state.params, toast]);
 
   return (
-    <SidebarProvider>
-      <Sidebar>
-        <ControlPanel
-          params={state.params}
-          dispatch={dispatch}
-          onRunClustering={handleRunClustering}
-          isPending={isPending}
-        />
-      </Sidebar>
-      <SidebarInset>
-        <MainHeader 
-          showExtraGraphs={state.showExtraGraphs}
-          onToggleExtraGraphs={() => dispatch({ type: "TOGGLE_EXTRA_GRAPHS" })}
-        />
-        <div className="p-4 md:p-6 lg:p-8 space-y-8">
-          {isPending && <DashboardSkeleton />}
-          {!isPending && !state.results && <WelcomeMessage />}
-          {state.results && (
-            <div className="space-y-8">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="lg:col-span-2 space-y-6">
-                  <DendrogramChart data={state.results.dendrogram} />
-                  <ScatterPlot2D data={state.results.scatter_data_2d} />
-                </div>
-                <div className="space-y-6">
-                  <DatasetOverview summary={state.results.dataset_summary} />
-                  <SilhouettePlot data={state.results.silhouette_scores} />
-                </div>
+    <div>
+      <Navbar
+        params={state.params}
+        dispatch={dispatch}
+        onRunClustering={handleRunClustering}
+        isPending={isPending}
+        showExtraGraphs={state.showExtraGraphs}
+        onToggleExtraGraphs={() => dispatch({ type: "TOGGLE_EXTRA_GRAPHS" })}
+      />
+      <main className="p-4 md:p-6 lg:p-8 space-y-8">
+        {isPending && <DashboardSkeleton />}
+        {!isPending && !state.results && <WelcomeMessage />}
+        {state.results && (
+          <div className="space-y-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-2 space-y-6">
+                <DendrogramChart data={state.results.dendrogram} />
+                <ScatterPlot2D data={state.results.scatter_data_2d} />
               </div>
-              
-              <AiClusterInsights
-                clusterData={state.results.cluster_summary}
-                datasetDescription={state.results.dataset_summary.description}
-              />
-              
-              <ClusterProfileCards data={state.results.cluster_summary} />
-              
-              {state.showExtraGraphs && (
-                <>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <ClusterHeatmap data={state.results.cluster_heatmap} />
-                    <FeatureCorrelationHeatmap data={state.results.feature_correlation} />
-                  </div>
-                  
-                  <FeatureDistributionCharts data={state.results.feature_distributions} />
-                </>
-              )}
+              <div className="space-y-6">
+                <DatasetOverview summary={state.results.dataset_summary} />
+                <SilhouettePlot data={state.results.silhouette_scores} />
+              </div>
             </div>
-          )}
-        </div>
-      </SidebarInset>
-    </SidebarProvider>
+            
+            <AiClusterInsights
+              clusterData={state.results.cluster_summary}
+              datasetDescription={state.results.dataset_summary.description}
+            />
+            
+            <ClusterProfileCards data={state.results.cluster_summary} />
+            
+            {state.showExtraGraphs && (
+              <>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <ClusterHeatmap data={state.results.cluster_heatmap} />
+                  <FeatureCorrelationHeatmap data={state.results.feature_correlation} />
+                </div>
+                
+                <FeatureDistributionCharts data={state.results.feature_distributions} />
+              </>
+            )}
+          </div>
+        )}
+      </main>
+    </div>
   );
 }
 
@@ -161,7 +149,7 @@ const WelcomeMessage = () => (
     <div className="p-8 border-2 border-dashed rounded-xl">
       <h2 className="text-2xl font-bold mb-2">Welcome to ClusterViz</h2>
       <p className="text-muted-foreground max-w-md">
-        Select a dataset and adjust the parameters in the left panel, then click "Run Clustering" to visualize the results.
+        Select a dataset and adjust the parameters in the top panel, then click "Run Clustering" to visualize the results.
       </p>
     </div>
   </div>

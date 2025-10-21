@@ -1,11 +1,7 @@
+
+"use client";
+
 import React from 'react';
-import {
-  SidebarHeader,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupLabel,
-} from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import {
@@ -17,12 +13,14 @@ import {
 } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { DATASETS, LINKAGE_METHODS, DISTANCE_METRICS } from '@/app/lib/datasets';
-import { Flower2, Grape, Fingerprint, HeartPulse, SlidersHorizontal, Loader2 } from 'lucide-react';
+import { Flower2, Grape, Fingerprint, HeartPulse, SlidersHorizontal, Loader2, BrainCircuit } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Checkbox } from './ui/checkbox';
 import { ScrollArea } from './ui/scroll-area';
+import { Switch } from './ui/switch';
+import { Separator } from './ui/separator';
 
-type ControlPanelProps = {
+type NavbarProps = {
   params: {
     dataset: keyof typeof DATASETS;
     nClusters: number;
@@ -33,6 +31,8 @@ type ControlPanelProps = {
   dispatch: React.Dispatch<any>;
   onRunClustering: () => void;
   isPending: boolean;
+  showExtraGraphs: boolean;
+  onToggleExtraGraphs: () => void;
 };
 
 const datasetIcons = {
@@ -42,32 +42,53 @@ const datasetIcons = {
   breast_cancer: <HeartPulse className="h-4 w-4" />,
 };
 
-export function ControlPanel({ params, dispatch, onRunClustering, isPending }: ControlPanelProps) {
-  
+export function Navbar({ params, dispatch, onRunClustering, isPending, showExtraGraphs, onToggleExtraGraphs }: NavbarProps) {
+
   const handleFeatureChange = (feature: string) => {
     const newFeatures = params.features.includes(feature)
       ? params.features.filter(f => f !== feature)
       : [...params.features, feature];
     dispatch({ type: 'SET_PARAM', payload: { features: newFeatures } });
   };
-  
+
   return (
-    <>
-      <SidebarHeader>
-        <h2 className="text-lg font-semibold">Controls</h2>
-        <p className="text-sm text-muted-foreground">Adjust parameters for clustering.</p>
-      </SidebarHeader>
-      <SidebarContent>
-        <SidebarGroup>
-          <div className="space-y-4">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex flex-col gap-4 py-4">
+        <div className="flex h-12 items-center justify-between">
+          <div className="flex items-center gap-3">
+            <BrainCircuit className="h-6 w-6 text-primary" />
+            <h1 className="text-xl font-bold tracking-tight">ClusterViz</h1>
+          </div>
+          <div className="flex items-center gap-4">
+             <div className="flex items-center gap-2">
+                <Label htmlFor="extra-graphs-toggle" className="text-sm whitespace-nowrap">Show Advanced Views</Label>
+                <Switch
+                id="extra-graphs-toggle"
+                checked={showExtraGraphs}
+                onCheckedChange={onToggleExtraGraphs}
+                disabled={isPending}
+                />
+            </div>
+            <Button onClick={onRunClustering} disabled={isPending} className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
+              {isPending ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <SlidersHorizontal className="mr-2 h-4 w-4" />
+              )}
+              Run Clustering
+            </Button>
+          </div>
+        </div>
+        <Separator />
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 items-end">
             <div>
-              <Label htmlFor="dataset">Dataset</Label>
+              <Label htmlFor="dataset" className="text-xs">Dataset</Label>
               <Select
                 value={params.dataset}
                 onValueChange={(value) => dispatch({ type: 'SET_PARAM', payload: { dataset: value } })}
                 disabled={isPending}
               >
-                <SelectTrigger id="dataset">
+                <SelectTrigger id="dataset" className="h-9">
                   <div className="flex items-center gap-2">
                     {datasetIcons[params.dataset]}
                     <SelectValue placeholder="Select dataset" />
@@ -88,16 +109,17 @@ export function ControlPanel({ params, dispatch, onRunClustering, isPending }: C
             </div>
             
             <div>
-              <Label>Feature Selection</Label>
+              <Label className="text-xs">Feature Selection</Label>
                <Popover>
                 <PopoverTrigger asChild>
-                  <Button variant="outline" className="w-full justify-start font-normal" disabled={isPending}>
+                  <Button variant="outline" className="w-full h-9 justify-start font-normal" disabled={isPending}>
                     {params.features.length === 0 ? 'All Features' : `${params.features.length} features selected`}
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-[--sidebar-width] p-0" align="start">
+                <PopoverContent className="w-64 p-0" align="start">
                    <ScrollArea className="h-64">
                     <div className="p-4 space-y-2">
+                       <Button variant="ghost" size="sm" className="w-full justify-start mb-2" onClick={() => dispatch({type: 'SET_PARAM', payload: { features: []}})}>Clear Selection</Button>
                       {DATASETS[params.dataset].features.map(feature => (
                         <div key={feature} className="flex items-center space-x-2">
                           <Checkbox
@@ -114,11 +136,10 @@ export function ControlPanel({ params, dispatch, onRunClustering, isPending }: C
                   </ScrollArea>
                 </PopoverContent>
               </Popover>
-               <p className="text-xs text-muted-foreground mt-1">Default to all if none selected.</p>
             </div>
 
             <div>
-              <Label htmlFor="n_clusters">Number of Clusters (k): {params.nClusters}</Label>
+              <Label htmlFor="n_clusters" className="text-xs">Clusters (k): {params.nClusters}</Label>
               <Slider
                 id="n_clusters"
                 min={2}
@@ -131,13 +152,13 @@ export function ControlPanel({ params, dispatch, onRunClustering, isPending }: C
             </div>
 
             <div>
-              <Label htmlFor="linkage">Linkage Method</Label>
+              <Label htmlFor="linkage" className="text-xs">Linkage Method</Label>
               <Select
                 value={params.linkage}
                 onValueChange={(value) => dispatch({ type: 'SET_PARAM', payload: { linkage: value } })}
-                disabled={isPending || params.linkage === 'ward'}
+                disabled={isPending}
               >
-                <SelectTrigger id="linkage">
+                <SelectTrigger id="linkage" className="h-9">
                   <SelectValue placeholder="Select linkage" />
                 </SelectTrigger>
                 <SelectContent>
@@ -149,13 +170,13 @@ export function ControlPanel({ params, dispatch, onRunClustering, isPending }: C
             </div>
 
             <div>
-              <Label htmlFor="metric">Distance Metric</Label>
+              <Label htmlFor="metric" className="text-xs">Distance Metric</Label>
               <Select
                 value={params.metric}
                 onValueChange={(value) => dispatch({ type: 'SET_PARAM', payload: { metric: value } })}
                 disabled={isPending}
               >
-                <SelectTrigger id="metric">
+                <SelectTrigger id="metric" className="h-9">
                   <SelectValue placeholder="Select metric" />
                 </SelectTrigger>
                 <SelectContent>
@@ -165,20 +186,8 @@ export function ControlPanel({ params, dispatch, onRunClustering, isPending }: C
                 </SelectContent>
               </Select>
             </div>
-          </div>
-        </SidebarGroup>
-      </SidebarContent>
-      <SidebarFooter>
-        <Button onClick={onRunClustering} disabled={isPending} className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
-          {isPending ? (
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-          ) : (
-            <SlidersHorizontal className="mr-2 h-4 w-4" />
-          )}
-          Run Clustering
-        </Button>
-        <p className="text-xs text-center text-muted-foreground mt-2">Built with Next.js + Firebase + scikit-learn</p>
-      </SidebarFooter>
-    </>
+        </div>
+      </div>
+    </header>
   );
 }
