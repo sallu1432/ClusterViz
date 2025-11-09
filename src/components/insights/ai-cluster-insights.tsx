@@ -28,8 +28,8 @@ const AiClusterInsights = ({ clusterData, datasetDescription }: AiClusterInsight
           const result = await generateClusterInsights(input);
           setInsights(result);
         } catch (e) {
-          console.error("Error generating AI insights:", e);
-          setError("Failed to generate AI insights. Please try again.");
+          console.error("Error generating insights:", e);
+          setError("Failed to generate insights. Please try again.");
         }
       });
     }
@@ -40,10 +40,10 @@ const AiClusterInsights = ({ clusterData, datasetDescription }: AiClusterInsight
       <CardHeader>
         <div className="flex items-center gap-2">
             <BrainCircuit className="w-6 h-6 text-accent"/>
-            <CardTitle>AI-Generated Cluster Insights</CardTitle>
+            <CardTitle>Cluster Insights Summary</CardTitle>
         </div>
         <CardDescription>
-          An AI-powered summary of the key characteristics of each cluster.
+          A summary of the key characteristics of each cluster.
         </CardDescription>
       </CardHeader>
       <CardContent>

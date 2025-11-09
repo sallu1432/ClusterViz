@@ -89,7 +89,7 @@ export default function IntroductionPage() {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                This tool demystifies the clustering process. Interactively adjust parameters, visualize the results through intuitive charts like dendrograms and heatmaps, and gain AI-powered insights to uncover the hidden patterns within your data.
+                This tool demystifies the clustering process. Interactively adjust parameters, visualize the results through intuitive charts like dendrograms and heatmaps, and gain deep insights to uncover the hidden patterns within your data.
               </p>
             </CardContent>
           </Card>
