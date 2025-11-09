@@ -1,6 +1,7 @@
 
 "use client";
 
+import React from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { ClusteringResults } from "@/types";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -31,12 +32,12 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
       </CardHeader>
       <CardContent className="pt-6 overflow-x-auto">
         <TooltipProvider>
-          <div className="grid gap-1" style={{gridTemplateColumns: `auto repeat(${features.length}, 1fr)`}}>
+          <div className="grid gap-1" style={{gridTemplateColumns: `auto repeat(${features.length}, minmax(60px, 1fr))`}}>
               {/* Top-left empty cell */}
-              <div></div>
+              <div className="sticky left-0 bg-card z-10"></div>
               {/* Column headers */}
               {features.map((feature, i) => (
-                  <div key={`col-header-${i}`} className="text-xs text-muted-foreground truncate text-center pb-2" title={feature}>
+                  <div key={`col-header-${i}`} className="text-xs text-muted-foreground truncate text-center pb-2 self-end" title={feature}>
                       {feature}
                   </div>
               ))}
@@ -45,7 +46,7 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
               {features.map((feature, i) => (
                   <React.Fragment key={`row-${i}`}>
                       {/* Row header */}
-                      <div className="text-xs text-muted-foreground truncate text-right pr-2 self-center" title={feature}>
+                      <div className="text-xs text-muted-foreground truncate text-right pr-2 self-center sticky left-0 bg-card z-10" title={feature}>
                           {feature}
                       </div>
                       {/* Cells */}
@@ -53,10 +54,9 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
                           <Tooltip key={`${i}-${j}`} delayDuration={100}>
                               <TooltipTrigger asChild>
                                   <div
-                                      className="w-full rounded-sm flex items-center justify-center"
+                                      className="w-full rounded-sm flex items-center justify-center aspect-square"
                                       style={{ 
                                           backgroundColor: getColor(value),
-                                          aspectRatio: '1/1'
                                       }}
                                   >
                                       <span className="text-xs font-mono text-foreground/80 mix-blend-difference">{value?.toFixed(2)}</span>
