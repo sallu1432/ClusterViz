@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { DATASETS, LINKAGE_METHODS, DISTANCE_METRICS } from '@/app/lib/datasets';
-import { Loader2, BookOpen } from 'lucide-react';
+import { Loader2, BookOpen, Play } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Checkbox } from './ui/checkbox';
 import { ScrollArea } from './ui/scroll-area';
@@ -33,9 +33,10 @@ type NavbarProps = {
   isPending: boolean;
   showExtraGraphs: boolean;
   onToggleExtraGraphs: () => void;
+  onRunClustering: () => void;
 };
 
-export function Navbar({ params, dispatch, isPending, showExtraGraphs, onToggleExtraGraphs }: NavbarProps) {
+export function Navbar({ params, dispatch, isPending, showExtraGraphs, onToggleExtraGraphs, onRunClustering }: NavbarProps) {
 
   const handleFeatureChange = (feature: string) => {
     const newFeatures = params.features.includes(feature)
@@ -73,12 +74,11 @@ export function Navbar({ params, dispatch, isPending, showExtraGraphs, onToggleE
                 disabled={isPending}
                 />
             </div>
-            {isPending && <Loader2 className="h-5 w-5 animate-spin" />}
           </div>
         </div>
         <Separator />
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-4 items-end">
-            <div>
+        <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
+            <div className='flex-grow' style={{flexBasis: '150px'}}>
               <Label htmlFor="dataset" className="text-xs font-semibold">Dataset</Label>
               <Select
                 value={params.dataset}
@@ -98,13 +98,13 @@ export function Navbar({ params, dispatch, isPending, showExtraGraphs, onToggleE
               </Select>
             </div>
             
-            <div>
+            <div className='flex-grow' style={{flexBasis: '200px'}}>
               <Label className="text-xs font-semibold">Feature Selection</Label>
               <div className="flex items-center gap-1 mt-1">
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button variant="outline" className="w-full h-9 justify-start font-normal" disabled={isPending}>
-                      {params.features.length === 0 ? 'All Features' : `${params.features.length} features selected`}
+                      {params.features.length === 0 ? 'All Features' : `${params.features.length} of ${DATASETS[params.dataset].features.length} selected`}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-64 p-0" align="start">
@@ -135,7 +135,7 @@ export function Navbar({ params, dispatch, isPending, showExtraGraphs, onToggleE
               </div>
             </div>
 
-            <div>
+            <div className='flex-grow' style={{flexBasis: '150px'}}>
               <Label htmlFor="n_clusters" className="text-xs font-semibold">Clusters (k): {params.nClusters}</Label>
               <Slider
                 id="n_clusters"
@@ -149,7 +149,7 @@ export function Navbar({ params, dispatch, isPending, showExtraGraphs, onToggleE
               />
             </div>
 
-            <div>
+            <div className='flex-grow' style={{flexBasis: '150px'}}>
               <Label htmlFor="linkage" className="text-xs font-semibold">Linkage Method</Label>
               <Select
                 value={params.linkage}
@@ -167,7 +167,7 @@ export function Navbar({ params, dispatch, isPending, showExtraGraphs, onToggleE
               </Select>
             </div>
 
-            <div>
+            <div className='flex-grow' style={{flexBasis: '150px'}}>
               <Label htmlFor="metric" className="text-xs font-semibold">Distance Metric</Label>
               <Select
                 value={params.metric}
@@ -184,6 +184,10 @@ export function Navbar({ params, dispatch, isPending, showExtraGraphs, onToggleE
                 </SelectContent>
               </Select>
             </div>
+             <Button onClick={onRunClustering} disabled={isPending} className="h-9 bg-accent text-accent-foreground hover:bg-accent/90">
+                {isPending ? <Loader2 className="animate-spin" /> : <Play/>}
+                <span>Run Clustering</span>
+            </Button>
         </div>
       </div>
     </header>

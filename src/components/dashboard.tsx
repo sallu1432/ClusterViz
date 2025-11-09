@@ -54,7 +54,7 @@ const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "SET_PARAM":
       const newParams = { ...state.params, ...action.payload };
-      if(action.payload.dataset) {
+      if(action.payload.dataset && state.params.dataset !== action.payload.dataset) {
         newParams.features = []; // Reset features when dataset changes
       }
       return { ...state, params: newParams };
@@ -99,7 +99,8 @@ export function Dashboard() {
 
   useEffect(() => {
     handleRunClustering();
-  }, [handleRunClustering]);
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="bg-background">
@@ -109,12 +110,14 @@ export function Dashboard() {
         isPending={isPending}
         showExtraGraphs={state.showExtraGraphs}
         onToggleExtraGraphs={() => dispatch({ type: "TOGGLE_EXTRA_GRAPHS" })}
+        onRunClustering={handleRunClustering}
       />
       <main className="container mx-auto p-4 md:p-6 lg:p-8">
-        {isPending && <DashboardSkeleton />}
+        {isPending && !state.results && <DashboardSkeleton />}
         {!isPending && !state.results && <WelcomeMessage />}
         {state.results && (
           <div className="grid grid-cols-1 gap-8">
+            {isPending && <div className="fixed top-4 right-4 z-50"><Skeleton className="h-10 w-32" /></div>}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <div className="lg:col-span-1">
                 <DatasetOverview summary={state.results.dataset_summary} />
@@ -136,6 +139,9 @@ export function Dashboard() {
             <FeatureCorrelationHeatmap data={state.results.feature_correlation} />
 
             <ScatterPlot2D data={state.results.scatter_data_2d} />
+            
+            <ClusterHeatmap data={state.results.cluster_heatmap} />
+
             {state.showExtraGraphs && (
               <>
                 <FeatureDistributionCharts data={state.results.feature_distributions} />
@@ -153,7 +159,7 @@ const WelcomeMessage = () => (
     <div className="p-12 border-2 border-dashed rounded-xl bg-card">
       <h2 className="text-3xl font-bold mb-3">Welcome to ClusterViz</h2>
       <p className="text-muted-foreground max-w-md mx-auto">
-        Select a dataset and configure your parameters in the navigation bar above to generate and visualize your analysis.
+        Select a dataset and configure your parameters in the navigation bar above, then click "Run Clustering" to generate and visualize your analysis.
       </p>
     </div>
   </div>
