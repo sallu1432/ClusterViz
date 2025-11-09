@@ -23,7 +23,7 @@ const DendrogramChart = ({ data }: DendrogramChartProps) => {
       <CardHeader>
         <CardTitle>Dendrogram</CardTitle>
         <CardDescription>
-          The dendrogram is a tree diagram that illustrates the hierarchical relationship between clusters. It shows how data points are grouped together at different levels of similarity. The vertical lines represent clusters, and the horizontal lines represent the distance (or dissimilarity) at which clusters are merged. Longer vertical lines indicate greater dissimilarity between clusters.
+          This dendrogram is a tree diagram that visualizes the entire hierarchy of clusters. Each leaf at the bottom represents a single data point. As you move up the tree, data points and clusters are progressively merged. The height of the horizontal lines indicates the "distance" or dissimilarity between the clusters being joined. Taller vertical lines signify greater dissimilarity, meaning the clusters are less alike. The dashed line represents the cutoff point used to form the number of clusters you selected, helping you see exactly how the final groups were formed from the hierarchy.
         </CardDescription>
       </CardHeader>
       <CardContent>

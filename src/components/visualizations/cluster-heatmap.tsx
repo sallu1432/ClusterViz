@@ -26,7 +26,7 @@ const ClusterHeatmap = ({ data }: ClusterHeatmapProps) => {
     <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
         <CardTitle>Cluster Feature Heatmap</CardTitle>
-        <CardDescription>This heatmap displays the normalized average value of each feature for each cluster. It helps you understand the defining characteristics of the clusters. A darker cell indicates a higher average value for that feature within that cluster, making it easy to spot which features are most important for distinguishing one cluster from another.</CardDescription>
+        <CardDescription>This heatmap reveals the defining characteristics of each cluster by showing the average value of each feature within that cluster. Each cell's color intensity corresponds to the feature's normalized value—darker cells indicate a higher average value. By comparing the colors across rows, you can quickly identify which features are most influential in separating one cluster from another. For example, a dark cell for "petal length" in Cluster 1 suggests that flowers in this cluster generally have long petals.</CardDescription>
       </CardHeader>
       <CardContent className="pt-6">
         <TooltipProvider>

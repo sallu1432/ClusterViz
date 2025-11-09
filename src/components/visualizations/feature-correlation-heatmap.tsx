@@ -28,7 +28,7 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
     <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
         <CardTitle>Feature Correlation Heatmap</CardTitle>
-        <CardDescription>This heatmap shows the Pearson correlation between pairs of features, which measures their linear relationship. A value near +1 (red) indicates a strong positive correlation (as one feature increases, the other tends to increase), while a value near -1 (blue) indicates a strong negative correlation. A value near 0 suggests no linear correlation. This helps identify redundant features and understand relationships in the data.</CardDescription>
+        <CardDescription>This heatmap reveals the linear relationships between pairs of features. A strong positive correlation (bright red, close to +1) means that as one feature increases, the other tends to increase as well. A strong negative correlation (bright blue, close to -1) means that as one feature increases, the other tends to decrease. Values near 0 indicate little to no linear relationship. This is useful for identifying redundant features and understanding how different variables in your dataset interact with each other.</CardDescription>
       </CardHeader>
       <CardContent className="pt-6 overflow-x-auto">
         <TooltipProvider>

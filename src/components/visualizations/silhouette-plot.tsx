@@ -17,8 +17,8 @@ const SilhouettePlot = ({ data }: SilhouettePlotProps) => {
     return (
         <Card className="h-full shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
             <CardHeader>
-                <CardTitle>Silhouette Scores</CardTitle>
-                <CardDescription>The silhouette score measures how well-separated clusters are. A high score (near 1) means samples are well-matched to their own cluster and poorly-matched to neighboring clusters, indicating good clustering. A score near 0 suggests overlapping clusters, and a negative score indicates samples might have been assigned to the wrong cluster.</CardDescription>
+                <CardTitle>Silhouette Scores by Cluster</CardTitle>
+                <CardDescription>The silhouette score for each cluster measures how similar its data points are to each other compared to points in other clusters. A score close to +1 indicates that the cluster is dense and well-separated from others, which is the ideal outcome. Scores near 0 suggest overlapping clusters, while negative scores may indicate that data points have been assigned to the wrong cluster. This plot helps you judge the quality and validity of the clustering results for each group.</CardDescription>
             </CardHeader>
             <CardContent className="flex-grow flex flex-col justify-center">
                 <div className="h-[250px] w-full">
