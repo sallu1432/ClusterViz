@@ -14,12 +14,14 @@ import {
 } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { DATASETS, LINKAGE_METHODS, DISTANCE_METRICS } from '@/app/lib/datasets';
+import { LINKAGE_DEFINITIONS, METRIC_DEFINITIONS } from '@/app/lib/definitions';
 import { BookOpen, ArrowLeft, ArrowRight } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Checkbox } from './ui/checkbox';
 import { ScrollArea } from './ui/scroll-area';
 import { Switch } from './ui/switch';
 import { Separator } from './ui/separator';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
 
 type NavbarProps = {
   params: {
@@ -69,6 +71,7 @@ export function Navbar({ params, dispatch, isPending, showExtraGraphs, onToggleE
           </div>
         </div>
         <Separator />
+        <TooltipProvider>
         <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
             <div className='flex-grow' style={{flexBasis: '150px'}}>
               <Label htmlFor="dataset" className="text-xs font-semibold">Dataset</Label>
@@ -153,7 +156,14 @@ export function Navbar({ params, dispatch, isPending, showExtraGraphs, onToggleE
                 </SelectTrigger>
                 <SelectContent>
                   {LINKAGE_METHODS.map((method) => (
-                    <SelectItem key={method} value={method}>{method}</SelectItem>
+                     <Tooltip key={method} delayDuration={100}>
+                        <TooltipTrigger asChild>
+                            <SelectItem value={method}>{method}</SelectItem>
+                        </TooltipTrigger>
+                        <TooltipContent side="right" align="start" className="max-w-xs">
+                           <p>{LINKAGE_DEFINITIONS[method]}</p>
+                        </TooltipContent>
+                    </Tooltip>
                   ))}
                 </SelectContent>
               </Select>
@@ -171,12 +181,20 @@ export function Navbar({ params, dispatch, isPending, showExtraGraphs, onToggleE
                 </SelectTrigger>
                 <SelectContent>
                     {DISTANCE_METRICS.map((metric) => (
-                        <SelectItem key={metric} value={metric}>{metric}</SelectItem>
+                         <Tooltip key={metric} delayDuration={100}>
+                            <TooltipTrigger asChild>
+                                <SelectItem value={metric}>{metric}</SelectItem>
+                            </TooltipTrigger>
+                            <TooltipContent side="right" align="start" className="max-w-xs">
+                                <p>{METRIC_DEFINITIONS[metric]}</p>
+                            </TooltipContent>
+                        </Tooltip>
                     ))}
                 </SelectContent>
               </Select>
             </div>
         </div>
+        </TooltipProvider>
       </div>
     </header>
   );
