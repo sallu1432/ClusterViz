@@ -27,9 +27,9 @@ const ScatterPlot2D = ({ data }: ScatterPlot2DProps) => {
   return (
     <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
-        <CardTitle>2D Cluster Projection (PCA)</CardTitle>
+        <CardTitle>2D Cluster Projection</CardTitle>
         <CardDescription>
-          Clusters visualized in two dimensions using Principal Component Analysis.
+          This scatter plot visualizes the clusters in a two-dimensional space. Each point represents a sample from the dataset, colored according to its assigned cluster. This helps to visually assess the separation between clusters. The axes represent the two main dimensions that capture the most variation in the data.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -47,7 +47,7 @@ const ScatterPlot2D = ({ data }: ScatterPlot2DProps) => {
               <XAxis 
                 type="number" 
                 dataKey="x" 
-                name="PC1" 
+                name="Component 1" 
                 label={{ value: 'Principal Component 1', position: 'insideBottom', offset: -25, fill: 'hsl(var(--foreground))' }} 
                 tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
                 stroke="hsl(var(--border))"
@@ -55,7 +55,7 @@ const ScatterPlot2D = ({ data }: ScatterPlot2DProps) => {
               <YAxis 
                 type="number" 
                 dataKey="y" 
-                name="PC2" 
+                name="Component 2" 
                 label={{ value: 'Principal Component 2', angle: -90, position: 'insideLeft', offset: -10, fill: 'hsl(var(--foreground))' }}
                 tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
                 stroke="hsl(var(--border))"
