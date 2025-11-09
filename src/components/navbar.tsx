@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { DATASETS, LINKAGE_METHODS, DISTANCE_METRICS } from '@/app/lib/datasets';
-import { Loader2, BookOpen, Play, ArrowLeft } from 'lucide-react';
+import { BookOpen, ArrowLeft, ArrowRight } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Checkbox } from './ui/checkbox';
 import { ScrollArea } from './ui/scroll-area';
@@ -33,10 +33,9 @@ type NavbarProps = {
   isPending: boolean;
   showExtraGraphs: boolean;
   onToggleExtraGraphs: () => void;
-  onRunClustering: () => void;
 };
 
-export function Navbar({ params, dispatch, isPending, showExtraGraphs, onToggleExtraGraphs, onRunClustering }: NavbarProps) {
+export function Navbar({ params, dispatch, isPending, showExtraGraphs, onToggleExtraGraphs }: NavbarProps) {
 
   const handleFeatureChange = (feature: string) => {
     const newFeatures = params.features.includes(feature)
@@ -177,10 +176,6 @@ export function Navbar({ params, dispatch, isPending, showExtraGraphs, onToggleE
                 </SelectContent>
               </Select>
             </div>
-             <Button onClick={onRunClustering} disabled={isPending} size="icon" className="h-9 w-9 bg-accent text-accent-foreground hover:bg-accent/90">
-                {isPending ? <Loader2 className="animate-spin" /> : <Play/>}
-                <span className="sr-only">Run Clustering</span>
-            </Button>
         </div>
       </div>
     </header>

@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useReducer, useTransition, useCallback, useEffect } from "react";
+import React, { useReducer, useTransition, useCallback, useEffect, useRef } from "react";
 import { Navbar } from "@/components/navbar";
 import { ClusteringResults } from "@/types";
 import { performClustering } from "@/app/lib/actions";
@@ -71,17 +71,20 @@ export function Dashboard() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
+  const isInitialMount = useRef(true);
 
-  const handleRunClustering = useCallback(() => {
+  useEffect(() => {
     startTransition(async () => {
       try {
         const results = await performClustering(state.params);
         dispatch({ type: "SET_RESULTS", payload: results });
-        if (state.results) { // don't toast on first run
-            toast({
-              title: "Clustering Successful",
-              description: `Analysis complete for the ${DATASETS[state.params.dataset].name} dataset.`,
-            });
+        if (!isInitialMount.current) {
+          toast({
+            title: "Clustering Successful",
+            description: `Analysis complete for the ${DATASETS[state.params.dataset].name} dataset.`,
+          });
+        } else {
+            isInitialMount.current = false;
         }
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : "An unknown error occurred";
@@ -93,12 +96,9 @@ export function Dashboard() {
         });
       }
     });
-  }, [state.params, state.results, toast]);
-
-  useEffect(() => {
-    handleRunClustering();
      // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [state.params, toast]);
+
 
   return (
     <div className="bg-background">
@@ -108,7 +108,6 @@ export function Dashboard() {
         isPending={isPending}
         showExtraGraphs={state.showExtraGraphs}
         onToggleExtraGraphs={() => dispatch({ type: "TOGGLE_EXTRA_GRAPHS" })}
-        onRunClustering={handleRunClustering}
       />
       <main className="container mx-auto p-4 md:p-6 lg:p-8">
         {isPending && !state.results && <DashboardSkeleton />}
@@ -172,3 +171,4 @@ const DashboardSkeleton = () => (
       <Skeleton className="h-[400px] w-full rounded-lg" />
     </div>
   );
+
