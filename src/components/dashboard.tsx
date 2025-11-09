@@ -15,7 +15,6 @@ import DatasetOverview from "./insights/dataset-overview";
 import FeatureCorrelationHeatmap from "./visualizations/feature-correlation-heatmap";
 import FeatureDistributionCharts from "./visualizations/feature-distribution-charts";
 import ClusterProfileCards from "./insights/cluster-profile-cards";
-import AiClusterInsights from "./insights/ai-cluster-insights";
 
 type State = {
   params: {
@@ -128,11 +127,6 @@ export function Dashboard() {
 
             <DendrogramChart data={state.results.dendrogram} />
             
-            <AiClusterInsights
-              clusterData={state.results.cluster_summary}
-              datasetDescription={state.results.dataset_summary.description}
-            />
-            
             <ClusterProfileCards data={state.results.cluster_summary} />
             
             <FeatureCorrelationHeatmap data={state.results.feature_correlation} />
@@ -168,7 +162,6 @@ const DashboardSkeleton = () => (
         <Skeleton className="h-[300px] w-full rounded-lg" />
         <Skeleton className="h-[300px] w-full rounded-lg lg:col-span-2" />
       </div>
-      <Skeleton className="h-[400px] w-full rounded-lg" />
       <Skeleton className="h-[400px] w-full rounded-lg" />
       <Skeleton className="h-[250px] w-full rounded-lg" />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
