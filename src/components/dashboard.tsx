@@ -9,7 +9,6 @@ import { useToast } from "@/hooks/use-toast";
 import { DATASETS } from "@/app/lib/datasets";
 import { Skeleton } from "@/components/ui/skeleton";
 import DendrogramChart from "./visualizations/dendrogram-chart";
-import ScatterPlot2D from "./visualizations/scatter-plot-2d";
 import ClusterHeatmap from "./visualizations/cluster-heatmap";
 import SilhouettePlot from "./visualizations/silhouette-plot";
 import DatasetOverview from "./insights/dataset-overview";
@@ -137,8 +136,6 @@ export function Dashboard() {
             <ClusterProfileCards data={state.results.cluster_summary} />
             
             <FeatureCorrelationHeatmap data={state.results.feature_correlation} />
-
-            <ScatterPlot2D data={state.results.scatter_data_2d} />
             
             <ClusterHeatmap data={state.results.cluster_heatmap} />
 
