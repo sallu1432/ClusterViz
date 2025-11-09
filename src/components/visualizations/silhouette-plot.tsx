@@ -18,7 +18,7 @@ const SilhouettePlot = ({ data }: SilhouettePlotProps) => {
         <Card className="h-full shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
             <CardHeader>
                 <CardTitle>Silhouette Scores</CardTitle>
-                <CardDescription>Measures cluster cohesion vs. separation. Higher is better (max 1.0).</CardDescription>
+                <CardDescription>The silhouette score measures how well-separated clusters are. A high score (near 1) means samples are well-matched to their own cluster and poorly-matched to neighboring clusters, indicating good clustering. A score near 0 suggests overlapping clusters, and a negative score indicates samples might have been assigned to the wrong cluster.</CardDescription>
             </CardHeader>
             <CardContent className="flex-grow flex flex-col justify-center">
                 <div className="h-[250px] w-full">

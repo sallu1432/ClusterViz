@@ -23,7 +23,7 @@ const DendrogramChart = ({ data }: DendrogramChartProps) => {
       <CardHeader>
         <CardTitle>Dendrogram</CardTitle>
         <CardDescription>
-          Hierarchical structure of clusters. The height of the links represents the distance between clusters. A subset of 50 samples is shown for clarity.
+          The dendrogram is a tree diagram that illustrates the hierarchical relationship between clusters. It shows how data points are grouped together at different levels of similarity. The vertical lines represent clusters, and the horizontal lines represent the distance (or dissimilarity) at which clusters are merged. Longer vertical lines indicate greater dissimilarity between clusters.
         </CardDescription>
       </CardHeader>
       <CardContent>
