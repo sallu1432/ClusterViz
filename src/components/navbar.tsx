@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { DATASETS, LINKAGE_METHODS, DISTANCE_METRICS } from '@/app/lib/datasets';
-import { SlidersHorizontal, Loader2, BookOpen } from 'lucide-react';
+import { Loader2, BookOpen } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Checkbox } from './ui/checkbox';
 import { ScrollArea } from './ui/scroll-area';
@@ -176,7 +176,12 @@ export function Navbar({ params, dispatch, isPending, showExtraGraphs, onToggleE
               >
                 <SelectTrigger id="metric" className="h-9 mt-1">
                   <SelectValue placeholder="Select metric" />
-                </Tria>
+                </SelectTrigger>
+                <SelectContent>
+                    {DISTANCE_METRICS.map((metric) => (
+                        <SelectItem key={metric} value={metric}>{metric}</SelectItem>
+                    ))}
+                </SelectContent>
               </Select>
             </div>
         </div>
