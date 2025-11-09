@@ -30,13 +30,12 @@ type NavbarProps = {
     features: string[];
   };
   dispatch: React.Dispatch<any>;
-  onRunClustering: () => void;
   isPending: boolean;
   showExtraGraphs: boolean;
   onToggleExtraGraphs: () => void;
 };
 
-export function Navbar({ params, dispatch, onRunClustering, isPending, showExtraGraphs, onToggleExtraGraphs }: NavbarProps) {
+export function Navbar({ params, dispatch, isPending, showExtraGraphs, onToggleExtraGraphs }: NavbarProps) {
 
   const handleFeatureChange = (feature: string) => {
     const newFeatures = params.features.includes(feature)
@@ -74,15 +73,7 @@ export function Navbar({ params, dispatch, onRunClustering, isPending, showExtra
                 disabled={isPending}
                 />
             </div>
-            <Separator orientation="vertical" className="h-8" />
-            <Button onClick={onRunClustering} disabled={isPending} size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-              {isPending ? (
-                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-              ) : (
-                <SlidersHorizontal className="mr-2 h-5 w-5" />
-              )}
-              Run Clustering
-            </Button>
+            {isPending && <Loader2 className="h-5 w-5 animate-spin" />}
           </div>
         </div>
         <Separator />
@@ -185,12 +176,7 @@ export function Navbar({ params, dispatch, onRunClustering, isPending, showExtra
               >
                 <SelectTrigger id="metric" className="h-9 mt-1">
                   <SelectValue placeholder="Select metric" />
-                </SelectTrigger>
-                <SelectContent>
-                  {DISTANCE_METRICS.map((metric) => (
-                    <SelectItem key={metric} value={metric}>{metric}</SelectItem>
-                  ))}
-                </SelectContent>
+                </Tria>
               </Select>
             </div>
         </div>

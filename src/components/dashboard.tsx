@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useReducer, useTransition, useCallback } from "react";
+import React, { useReducer, useTransition, useCallback, useEffect } from "react";
 import { Navbar } from "@/components/navbar";
 import { ClusteringResults } from "@/types";
 import { performClustering } from "@/app/lib/actions";
@@ -79,10 +79,12 @@ export function Dashboard() {
       try {
         const results = await performClustering(state.params);
         dispatch({ type: "SET_RESULTS", payload: results });
-        toast({
-          title: "Clustering Successful",
-          description: `Analysis complete for the ${DATASETS[state.params.dataset].name} dataset.`,
-        });
+        if (state.results) { // don't toast on first run
+            toast({
+              title: "Clustering Successful",
+              description: `Analysis complete for the ${DATASETS[state.params.dataset].name} dataset.`,
+            });
+        }
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : "An unknown error occurred";
         dispatch({ type: "SET_ERROR", payload: errorMessage });
@@ -93,14 +95,17 @@ export function Dashboard() {
         });
       }
     });
-  }, [state.params, toast]);
+  }, [state.params, state.results, toast]);
+
+  useEffect(() => {
+    handleRunClustering();
+  }, [handleRunClustering]);
 
   return (
     <div className="bg-background">
       <Navbar
         params={state.params}
         dispatch={dispatch}
-        onRunClustering={handleRunClustering}
         isPending={isPending}
         showExtraGraphs={state.showExtraGraphs}
         onToggleExtraGraphs={() => dispatch({ type: "TOGGLE_EXTRA_GRAPHS" })}
@@ -120,7 +125,6 @@ export function Dashboard() {
             </div>
 
             <DendrogramChart data={state.results.dendrogram} />
-            <ScatterPlot2D data={state.results.scatter_data_2d} />
             
             <AiClusterInsights
               clusterData={state.results.cluster_summary}
@@ -131,6 +135,7 @@ export function Dashboard() {
             
             <FeatureCorrelationHeatmap data={state.results.feature_correlation} />
 
+            <ScatterPlot2D data={state.results.scatter_data_2d} />
             {state.showExtraGraphs && (
               <>
                 <FeatureDistributionCharts data={state.results.feature_distributions} />
@@ -148,7 +153,7 @@ const WelcomeMessage = () => (
     <div className="p-12 border-2 border-dashed rounded-xl bg-card">
       <h2 className="text-3xl font-bold mb-3">Welcome to ClusterViz</h2>
       <p className="text-muted-foreground max-w-md mx-auto">
-        Select a dataset and configure your parameters in the navigation bar above, then click 'Run Clustering' to generate and visualize your analysis.
+        Select a dataset and configure your parameters in the navigation bar above to generate and visualize your analysis.
       </p>
     </div>
   </div>
