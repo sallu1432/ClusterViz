@@ -32,7 +32,7 @@ export default function IntroductionPage() {
       <main className="flex-1 container mx-auto px-4 md:px-6 py-12">
         <section className="text-center">
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tighter mb-4">
-            Understanding Your Data Through Clustering
+            Understanding the dataset through hierarchical clustering
           </h1>
           <p className="max-w-3xl mx-auto text-lg text-muted-foreground mb-8">
             ClusterViz is an interactive tool designed to help you explore and understand complex datasets using Hierarchical Clustering, a powerful unsupervised machine learning technique.
