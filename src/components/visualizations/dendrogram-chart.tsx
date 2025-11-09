@@ -3,7 +3,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { ClusteringResults } from "@/types";
-import { ResponsiveContainer, ComposedChart, XAxis, YAxis, Line, Scatter, Tooltip } from "recharts";
+import { ResponsiveContainer, ComposedChart, XAxis, YAxis, Line, Scatter, Tooltip, ReferenceLine } from "recharts";
 
 interface DendrogramChartProps {
   data: ClusteringResults['dendrogram'];
@@ -21,9 +21,9 @@ const DendrogramChart = ({ data }: DendrogramChartProps) => {
   return (
     <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
-        <CardTitle>Dendrogram</CardTitle>
+        <CardTitle>How are the Clusters Formed?</CardTitle>
         <CardDescription>
-          This dendrogram is a tree diagram that visualizes the entire hierarchy of clusters. Each leaf at the bottom represents a single data point. As you move up the tree, data points and clusters are progressively merged. The height of the horizontal lines indicates the "distance" or dissimilarity between the clusters being joined. Taller vertical lines signify greater dissimilarity, meaning the clusters are less alike. The dashed line represents the cutoff point used to form the number of clusters you selected, helping you see exactly how the final groups were formed from the hierarchy.
+          This dendrogram reveals the story of how your data was grouped. Think of it as a family tree for your data points. At the bottom, each point is on its own. As you move up, the algorithm pairs up the most similar points and clusters, creating larger groups. The height of each merge (the vertical lines) tells you how dissimilar the joined groups were. Long vertical lines indicate that two very different groups were merged, which can signal natural divisions in the data. The red dashed line shows exactly where the algorithm "cut" the tree to form the final number of clusters you selected.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -65,19 +65,17 @@ const DendrogramChart = ({ data }: DendrogramChartProps) => {
                   strokeWidth={1.5}
                   dot={false}
                   activeDot={false}
+                  isAnimationActive={false}
                 />
               ))}
               <Scatter data={data.nodes} fill="hsl(var(--primary))" shape={<CustomDot />} />
               {data.cluster_threshold && (
-                 <Line
-                    name="Cluster Threshold"
-                    data={[{x: -1, y: data.cluster_threshold}, {x: 51, y: data.cluster_threshold}]}
-                    dataKey="y"
+                 <ReferenceLine
+                    y={data.cluster_threshold}
+                    label={{ value: 'Cluster Cutoff', position: 'insideTopRight', fill: 'hsl(var(--accent))', fontSize: 12 }}
                     stroke="hsl(var(--accent))"
                     strokeWidth={2}
                     strokeDasharray="5 5"
-                    dot={false}
-                    activeDot={false}
                  />
               )}
             </ComposedChart>

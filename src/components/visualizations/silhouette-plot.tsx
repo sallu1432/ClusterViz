@@ -3,7 +3,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { ClusteringResults } from "@/types";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LabelList, Line } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LabelList, Line, ReferenceLine } from 'recharts';
 
 interface SilhouettePlotProps {
     data: ClusteringResults['silhouette_scores'];
@@ -17,8 +17,8 @@ const SilhouettePlot = ({ data }: SilhouettePlotProps) => {
     return (
         <Card className="h-full shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
             <CardHeader>
-                <CardTitle>Silhouette Scores by Cluster</CardTitle>
-                <CardDescription>The silhouette score for each cluster measures how similar its data points are to each other compared to points in other clusters. A score close to +1 indicates that the cluster is dense and well-separated from others, which is the ideal outcome. Scores near 0 suggest overlapping clusters, while negative scores may indicate that data points have been assigned to the wrong cluster. This plot helps you judge the quality and validity of the clustering results for each group.</CardDescription>
+                <CardTitle>Are the Clusters Meaningful?</CardTitle>
+                <CardDescription>This chart uses the Silhouette Score to answer that question. It measures how well-defined your clusters are. A score near +1 means a cluster is dense and well-separated. Scores near 0 suggest clusters overlap, and negative scores mean samples might be in the wrong cluster. The red dashed line shows the average score, giving you a quick benchmark for the overall quality of your clustering result.</CardDescription>
             </CardHeader>
             <CardContent className="flex-grow flex flex-col justify-center">
                 <div className="h-[250px] w-full">
@@ -35,18 +35,12 @@ const SilhouettePlot = ({ data }: SilhouettePlotProps) => {
                                     borderRadius: "var(--radius)",
                                 }}
                             />
+                             <ReferenceLine x={averageScore} stroke="hsl(var(--accent))" strokeWidth={2} strokeDasharray="5 5" >
+                                <LabelList value="Average" position="top" fill="hsl(var(--accent))" fontSize={12}/>
+                            </ReferenceLine>
                             <Bar dataKey="score" fill="hsl(var(--chart-1))" radius={[0, 4, 4, 0]}>
                                 <LabelList dataKey="score" position="right" formatter={(value: number) => value.toFixed(2)} style={{ fill: 'hsl(var(--foreground))' }} />
                             </Bar>
-                             <Line 
-                                dataKey={averageScore} 
-                                stroke="hsl(var(--accent))"
-                                strokeWidth={2}
-                                strokeDasharray="5 5"
-                                dot={false}
-                                activeDot={false}
-                                name="Average Score"
-                            />
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
