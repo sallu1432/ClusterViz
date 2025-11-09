@@ -29,6 +29,14 @@ export type FeatureDistribution = {
   bins: { name: string, value: number }[];
 };
 
+export type Dataset = {
+    name: string;
+    domain: string;
+    description: string;
+    features: string[];
+    feature_definitions: Record<string, string>;
+};
+
 export type ClusteringResults = {
   dataset_summary: {
     n_samples: number;

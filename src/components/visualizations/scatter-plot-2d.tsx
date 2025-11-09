@@ -39,8 +39,8 @@ const ScatterPlot2D = ({ data }: ScatterPlot2DProps) => {
               margin={{
                 top: 20,
                 right: 30,
-                bottom: 40,
-                left: 20,
+                bottom: 60,
+                left: 30,
               }}
             >
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
@@ -56,7 +56,7 @@ const ScatterPlot2D = ({ data }: ScatterPlot2DProps) => {
                 type="number" 
                 dataKey="y" 
                 name="PC2" 
-                label={{ value: 'Principal Component 2', angle: -90, position: 'insideLeft', fill: 'hsl(var(--foreground))' }}
+                label={{ value: 'Principal Component 2', angle: -90, position: 'insideLeft', offset: -10, fill: 'hsl(var(--foreground))' }}
                 tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
                 stroke="hsl(var(--border))"
               />
@@ -69,7 +69,7 @@ const ScatterPlot2D = ({ data }: ScatterPlot2DProps) => {
                     borderRadius: "var(--radius)",
                 }}
               />
-              <Legend verticalAlign="bottom" wrapperStyle={{ paddingTop: '20px' }}/>
+              <Legend verticalAlign="bottom" wrapperStyle={{ paddingTop: '40px' }}/>
               {clusters.map((clusterId) => (
                 <Scatter
                   key={clusterId}

@@ -111,16 +111,17 @@ export function Dashboard() {
         {state.results && (
           <div className="grid grid-cols-1 gap-8">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div className="lg:col-span-1">
-                    <DatasetOverview summary={state.results.dataset_summary} />
-                </div>
-                <div className="lg:col-span-2">
-                    <SilhouettePlot data={state.results.silhouette_scores} />
-                </div>
+              <div className="lg:col-span-1">
+                <DatasetOverview summary={state.results.dataset_summary} />
+              </div>
+              <div className="lg:col-span-2">
+                <SilhouettePlot data={state.results.silhouette_scores} />
+              </div>
             </div>
+
             <DendrogramChart data={state.results.dendrogram} />
             <ScatterPlot2D data={state.results.scatter_data_2d} />
-
+            
             <AiClusterInsights
               clusterData={state.results.cluster_summary}
               datasetDescription={state.results.dataset_summary.description}
@@ -128,10 +129,10 @@ export function Dashboard() {
             
             <ClusterProfileCards data={state.results.cluster_summary} />
             
+            <FeatureCorrelationHeatmap data={state.results.feature_correlation} />
+
             {state.showExtraGraphs && (
               <>
-                <ClusterHeatmap data={state.results.cluster_heatmap} />
-                <FeatureCorrelationHeatmap data={state.results.feature_correlation} />
                 <FeatureDistributionCharts data={state.results.feature_distributions} />
               </>
             )}
@@ -167,5 +168,6 @@ const DashboardSkeleton = () => (
         <Skeleton className="h-[200px] w-full rounded-lg" />
         <Skeleton className="h-[200px] w-full rounded-lg" />
       </div>
+      <Skeleton className="h-[400px] w-full rounded-lg" />
     </div>
   );
