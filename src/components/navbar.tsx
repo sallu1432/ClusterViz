@@ -184,9 +184,9 @@ export function Navbar({ params, dispatch, isPending, showExtraGraphs, onToggleE
                 </SelectContent>
               </Select>
             </div>
-             <Button onClick={onRunClustering} disabled={isPending} className="h-9 bg-accent text-accent-foreground hover:bg-accent/90">
+             <Button onClick={onRunClustering} disabled={isPending} size="icon" className="h-9 w-9 bg-accent text-accent-foreground hover:bg-accent/90">
                 {isPending ? <Loader2 className="animate-spin" /> : <Play/>}
-                <span>Run Clustering</span>
+                <span className="sr-only">Run Clustering</span>
             </Button>
         </div>
       </div>
