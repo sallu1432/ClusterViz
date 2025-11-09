@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DATASETS } from "../lib/datasets";
 import type { Dataset } from "@/types";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 export default function FeaturesPage() {
     const [selectedDatasetKey, setSelectedDatasetKey] = useState<keyof typeof DATASETS>('iris');
@@ -18,20 +19,18 @@ export default function FeaturesPage() {
                     <Link href="/" className="text-2xl font-bold tracking-tight">
                         ClusterViz
                     </Link>
-                    <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-                        <Link href="/" className="text-foreground/60 transition-colors hover:text-foreground/80">
-                            Introduction
+                    <div className="flex items-center gap-4">
+                        <Link href="/">
+                            <Button variant="outline">
+                                <ArrowLeft className="mr-2" /> Back
+                            </Button>
                         </Link>
-                        <Link href="/features" className="text-foreground transition-colors hover:text-foreground/80">
-                            Features Explained
+                        <Link href="/dashboard">
+                            <Button>
+                                Next Page <ArrowRight className="ml-2" />
+                            </Button>
                         </Link>
-                        <Link href="/dashboard" className="text-foreground/60 transition-colors hover:text-foreground/80">
-                            Dashboard
-                        </Link>
-                    </nav>
-                    <Link href="/dashboard">
-                        <Button>Go to Dashboard</Button>
-                    </Link>
+                    </div>
                 </div>
             </header>
 
@@ -42,7 +41,7 @@ export default function FeaturesPage() {
                             Dataset Feature Explorer
                         </h1>
                         <p className="max-w-2xl mx-auto text-lg text-muted-foreground">
-                            Understand the building blocks of our analysis. Select a dataset to see what each feature represents and why it's important.
+                            Understand the building blocks of our analysis. Select a dataset to see what each feature represents and why it's important for the clustering model.
                         </p>
                     </div>
 
@@ -73,7 +72,7 @@ export default function FeaturesPage() {
                                     <CardTitle className="text-xl">{feature}</CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-muted-foreground">
+                                     <p className="text-muted-foreground">
                                         {(selectedDataset.feature_definitions as Record<string, string>)[feature] || "No definition available."}
                                     </p>
                                 </CardContent>

@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { FileText, Sigma, BrainCircuit } from 'lucide-react';
+import { FileText, Sigma, BrainCircuit, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default function IntroductionPage() {
@@ -12,20 +12,18 @@ export default function IntroductionPage() {
           <Link href="/" className="text-2xl font-bold tracking-tight">
             ClusterViz
           </Link>
-          <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-            <Link href="/" className="text-foreground transition-colors hover:text-foreground/80">
-              Introduction
+          <div className="flex items-center gap-4">
+             <Link href="/dashboard">
+                <Button variant="outline">
+                    Skip to Dashboard
+                </Button>
             </Link>
-            <Link href="/features" className="text-foreground/60 transition-colors hover:text-foreground/80">
-              Features Explained
+            <Link href="/features">
+              <Button>
+                Next Page <ArrowRight className="ml-2" />
+              </Button>
             </Link>
-            <Link href="/dashboard" className="text-foreground/60 transition-colors hover:text-foreground/80">
-              Dashboard
-            </Link>
-          </nav>
-          <Link href="/dashboard">
-            <Button>Go to Dashboard</Button>
-          </Link>
+          </div>
         </div>
       </header>
 

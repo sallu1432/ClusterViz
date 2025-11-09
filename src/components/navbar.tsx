@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { DATASETS, LINKAGE_METHODS, DISTANCE_METRICS } from '@/app/lib/datasets';
-import { Loader2, BookOpen, Play } from 'lucide-react';
+import { Loader2, BookOpen, Play, ArrowLeft } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Checkbox } from './ui/checkbox';
 import { ScrollArea } from './ui/scroll-area';
@@ -51,20 +51,13 @@ export function Navbar({ params, dispatch, isPending, showExtraGraphs, onToggleE
         <div className="flex h-14 items-center justify-between">
           <div className="flex items-center gap-4">
             <Link href="/" className="text-2xl font-bold tracking-tight">ClusterViz</Link>
-            <Separator orientation="vertical" className="h-8" />
-            <nav className="hidden md:flex items-center gap-4 text-sm font-medium">
-              <Link href="/" className="text-foreground/60 transition-colors hover:text-foreground/80">
-                Introduction
-              </Link>
-              <Link href="/features" className="text-foreground/60 transition-colors hover:text-foreground/80">
-                Features Explained
-              </Link>
-              <Link href="/dashboard" className="text-foreground transition-colors hover:text-foreground/80">
-                Dashboard
-              </Link>
-            </nav>
           </div>
           <div className="flex items-center gap-4">
+            <Link href="/features">
+                <Button variant="outline">
+                    <ArrowLeft className="mr-2" /> Back
+                </Button>
+            </Link>
             <div className="flex items-center gap-2">
                 <Label htmlFor="extra-graphs-toggle" className="text-sm whitespace-nowrap">Advanced Views</Label>
                 <Switch
