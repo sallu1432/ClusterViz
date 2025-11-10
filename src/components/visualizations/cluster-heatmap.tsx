@@ -72,7 +72,7 @@ const ClusterHeatmap = ({ data }: ClusterHeatmapProps) => {
               <TableBody>
                 {cluster_data.map(row => (
                   <TableRow key={row.cluster}>
-                    <TableCell className="font-medium">{row.cluster}</TableCell>
+                    <TableCell className="font-medium whitespace-nowrap">{row.cluster}</TableCell>
                     {features.map(feature => {
                       const value = row[feature] as number;
                       const { backgroundColor, textColor } = getColors(value);
