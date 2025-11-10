@@ -3,7 +3,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { ClusteringResults } from "@/types";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LabelList, Line, ReferenceLine } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LabelList, ReferenceLine } from 'recharts';
 
 interface SilhouettePlotProps {
     data: ClusteringResults['silhouette_scores'];
@@ -17,43 +17,38 @@ const SilhouettePlot = ({ data }: SilhouettePlotProps) => {
     return (
         <Card className="h-full shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
             <CardHeader>
-                <CardTitle className="text-3xl font-bold tracking-tight">Silhouette Score</CardTitle>
+                <CardTitle>Cluster Quality (Silhouette Score)</CardTitle>
                 <CardDescription>
-                    <span className="font-bold block mt-2 text-primary">Definition:</span>
-                    The Silhouette Score measures how similar a data point is to its own cluster compared to other clusters.
-                    <br /><br />
-                    <span className="font-bold block text-primary">What It Explains:</span>
-                    This chart shows the silhouette score for each cluster, answering the question: "How meaningful are my clusters?". A score near +1 indicates that the cluster is dense and well-separated from others. A score near 0 suggests overlapping clusters, and a negative score implies that samples might have been assigned to the wrong cluster.
-                    <br /><br />
-                    <span className="font-bold block text-primary">Summary from the Chart:</span>
-                    Each bar represents a cluster's average silhouette score. The dashed line shows the average score across all clusters (e.g., 0.55). For instance, a score of 0.8 for "Cluster 0" indicates a very dense and well-separated cluster, while a score of 0.2 would suggest it's poorly defined. Look for clusters with scores well above the average.
+                    This score (from -1 to 1) measures cluster quality. High scores mean clusters are dense and well-separated. Scores near 0 suggest overlapping clusters. The dashed line is the average score for this analysis.
                 </CardDescription>
             </CardHeader>
-            <CardContent className="flex-grow flex flex-col justify-center">
-                <div className="h-[250px] w-full">
+            <CardContent className="flex-grow flex flex-col justify-center pt-2">
+                <div className="h-[200px] w-full">
                     <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={data} layout="vertical" margin={{ top: 5, right: 40, left: 20, bottom: 20 }}>
+                        <BarChart data={data} layout="vertical" margin={{ top: 5, right: 40, left: 10, bottom: 5 }}>
                             <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))"/>
                             <XAxis type="number" domain={[0, 1]} tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} stroke="hsl(var(--border))"/>
-                            <YAxis type="category" dataKey="cluster" width={80} tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} stroke="hsl(var(--border))"/>
+                            <YAxis type="category" dataKey="cluster" width={70} tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} stroke="hsl(var(--border))" tickLine={false} axisLine={false}/>
                             <Tooltip
                                 contentStyle={{
-                                    background: "hsl(var(--background) / 0.9)",
+                                    background: "hsl(var(--background) / 0.8)",
                                     borderColor: "hsl(var(--border))",
                                     backdropFilter: "blur(4px)",
                                     borderRadius: "var(--radius)",
                                 }}
+                                formatter={(value: number) => value.toFixed(3)}
+                                cursor={{ fill: 'hsl(var(--muted))' }}
                             />
-                             <ReferenceLine x={averageScore} stroke="hsl(var(--accent))" strokeWidth={2} strokeDasharray="5 5" >
-                                <LabelList value="Average" position="top" fill="hsl(var(--accent))" fontSize={12}/>
+                             <ReferenceLine x={averageScore} stroke="hsl(var(--accent))" strokeWidth={1.5} strokeDasharray="3 3">
+                                <LabelList value={`Avg: ${averageScore.toFixed(2)}`} position="insideTopRight" fill="hsl(var(--accent))" fontSize={12}/>
                             </ReferenceLine>
                             <Bar dataKey="score" fill="hsl(var(--chart-1))" radius={[0, 4, 4, 0]}>
-                                <LabelList dataKey="score" position="right" formatter={(value: number) => value.toFixed(2)} style={{ fill: 'hsl(var(--foreground))' }} />
+                                <LabelList dataKey="score" position="right" formatter={(value: number) => value.toFixed(2)} style={{ fill: 'hsl(var(--foreground))', fontSize: 12 }} />
                             </Bar>
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
-                 <p className="text-sm text-center text-muted-foreground mt-4">
+                 <p className="text-sm text-center text-muted-foreground mt-2">
                     Average Silhouette Score: <span className="font-bold text-lg text-foreground">{averageScore.toFixed(3)}</span>
                 </p>
             </CardContent>

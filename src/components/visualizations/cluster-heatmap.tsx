@@ -11,27 +11,18 @@ interface ClusterHeatmapProps {
 }
 
 const getColors = (value: number) => {
-  const hue = 200; // Blueish
-  const saturation = 70;
-  const lightness = 95 - (value * 50); // Lighter for lower values, darker for higher
+  const hue = 220; // Consistent blue
+  const saturation = 85;
+  const lightness = 95 - (value * 60); 
   
   const isDarkTheme = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
   
-  let textColor = 'hsl(var(--foreground))';
+  let textColor: string;
   if (isDarkTheme) {
-    if (lightness > 65) {
-      textColor = 'hsl(224 71.4% 4.1%)'; // dark text for very light cells
-    } else {
-      textColor = 'hsl(var(--card-foreground))'; // light text for darker cells
-    }
+    textColor = lightness > 60 ? 'hsl(224 71.4% 4.1%)' : 'hsl(210 40% 98%)';
   } else {
-     if (lightness < 50) {
-      textColor = 'hsl(var(--card-foreground))'; // light text for dark cells
-     } else {
-      textColor = 'hsl(224 71.4% 4.1%)'; // dark text for light cells
-     }
+    textColor = lightness > 55 ? 'hsl(224 71.4% 4.1%)' : 'hsl(0 0% 100%)';
   }
-
 
   return { 
     backgroundColor: `hsl(${hue}, ${saturation}%, ${lightness}%)`,
@@ -47,19 +38,12 @@ const ClusterHeatmap = ({ data }: ClusterHeatmapProps) => {
   return (
     <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
-        <CardTitle className="text-3xl font-bold tracking-tight">Cluster Heatmap</CardTitle>
+        <CardTitle>Cluster Feature Heatmap</CardTitle>
         <CardDescription>
-            <span className="font-bold block mt-2 text-primary">Definition:</span>
-            This heatmap visualizes the central tendency (mean) of each feature for each cluster. The values are typically scaled from 0 to 1 for consistent comparison.
-            <br /><br />
-            <span className="font-bold block text-primary">What It Explains:</span>
-            It provides a "fingerprint" for each cluster, showing the feature values that are most characteristic of that group. By looking across a row, you can quickly understand the unique profile of a cluster.
-            <br /><br />
-            <span className="font-bold block text-primary">Summary from the Chart:</span>
-            Darker cells indicate a higher average value for a feature within that cluster, while lighter cells indicate a lower average. For example, if "Cluster 0" has a dark cell (e.g., 0.9) for "petal length" and "Cluster 1" has a light cell (e.g., 0.1), it strongly suggests that petal length is a key differentiator between these two groups.
+          This heatmap shows the average value (scaled 0-1) for each feature within each cluster. Darker cells indicate higher values, revealing the "fingerprint" that defines each group.
         </CardDescription>
       </CardHeader>
-      <CardContent className="pt-6">
+      <CardContent className="pt-4">
         <TooltipProvider>
           <div className="overflow-x-auto rounded-md border">
             <Table>
@@ -80,7 +64,7 @@ const ClusterHeatmap = ({ data }: ClusterHeatmapProps) => {
                         <TableCell key={feature} className="p-0 text-center">
                            <Tooltip delayDuration={100}>
                             <TooltipTrigger asChild>
-                                <div style={{ backgroundColor, color: textColor }} className="h-14 flex items-center justify-center text-sm font-mono transition-transform hover:scale-110 hover:z-10">
+                                <div style={{ backgroundColor, color: textColor }} className="h-14 flex items-center justify-center text-sm font-mono transition-transform duration-200 hover:scale-110 hover:z-10 hover:shadow-lg hover:rounded-sm">
                                 {value.toFixed(2)}
                                 </div>
                             </TooltipTrigger>

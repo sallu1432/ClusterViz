@@ -11,7 +11,7 @@ type SimulationParams = {
 const random = (min: number, max: number) => Math.random() * (max - min) + min;
 const randomInt = (min: number, max: number) => Math.floor(random(min, max));
 
-const generateScatterData = (nSamples: number, nClusters: number, nFeatures: number): ClusteringResults['scatter_data_2d'] => {
+const generateScatterData = (nSamples: number, nClusters: number): ClusteringResults['scatter_data_2d'] => {
   const points = [];
   const clusterCenters = Array.from({ length: nClusters }, () => ({
     x: random(-10, 10),
@@ -30,7 +30,7 @@ const generateScatterData = (nSamples: number, nClusters: number, nFeatures: num
   return points;
 };
 
-const generateDendrogramData = (nSamples: number, nClusters: number): ClusteringResults['dendrogram'] => {
+const generateDendrogramData = (nSamples: number): ClusteringResults['dendrogram'] => {
     const nodes: { [key: number]: { x: number; y: number } } = {};
     const links: ClusteringResults['dendrogram']['links'] = [];
     const clusterThreshold = random(0.5, 2.5);
@@ -80,17 +80,17 @@ export const simulateClustering = (params: SimulationParams): ClusteringResults 
   const { dataset, nClusters, features } = params;
   const datasetInfo = DATASETS[dataset];
 
-  const n_samples = dataset === 'iris' ? 150 : dataset === 'wine' ? 178 : 357;
+  const n_samples = randomInt(30, 50); // Use a smaller, randomized sample size
   const usedFeatures = features.length > 0 ? features : datasetInfo.features;
   const n_features = usedFeatures.length;
 
-  const scatter_data_2d = generateScatterData(n_samples, nClusters, n_features);
+  const scatter_data_2d = generateScatterData(n_samples, nClusters);
   const cluster_labels = scatter_data_2d.map(p => p.cluster);
   
   const cluster_summary: ClusteringResults['cluster_summary'] = Array.from({ length: nClusters }, (_, i) => ({
     clusterId: i,
     nSamples: cluster_labels.filter(l => l === i).length,
-    featureMeans: usedFeatures.reduce((acc, feature) => {
+    featureMeans: usedFeatures.slice(0, 4).reduce((acc, feature) => {
       acc[feature] = random(0, 10);
       return acc;
     }, {} as Record<string, number>),
@@ -127,7 +127,6 @@ export const simulateClustering = (params: SimulationParams): ClusteringResults 
     matrix: Array.from({ length: correlationFeatures.length }, (_, i) => 
       Array.from({ length: correlationFeatures.length }, (_, j) => {
           if (i === j) return 1;
-          // Simulate some known correlations for Iris
           if (dataset === 'iris') {
               const f1 = correlationFeatures[i];
               const f2 = correlationFeatures[j];
@@ -142,17 +141,13 @@ export const simulateClustering = (params: SimulationParams): ClusteringResults 
   const feature_distributions: ClusteringResults['feature_distributions'] = usedFeatures.slice(0, 4).map(feature => ({
     feature,
     bins: Array.from({ length: 10 }, (_, i) => ({
-      name: `${i * 10}-${(i + 1) * 10}`,
-      value: randomInt(5, 50),
+      name: `${(i * 1).toFixed(1)}-${((i + 1) * 1).toFixed(1)}`,
+      value: randomInt(1, 15),
     })),
   }));
 
-  const target_distribution = dataset === 'iris' ? 
-  [{name: 'Setosa', value: 50}, {name: 'Versicolour', value: 50}, {name: 'Virginica', value: 50}] :
-  dataset === 'wine' ?
-  [{name: 'Class 0', value: 59}, {name: 'Class 1', value: 71}, {name: 'Class 2', value: 48}] :
-  [];
-
+  // Target distribution is less relevant with random sample sizes, so we can simplify.
+  const target_distribution: ClusteringResults['dataset_summary']['target_distribution'] = [];
 
   return {
     dataset_summary: {
@@ -162,7 +157,7 @@ export const simulateClustering = (params: SimulationParams): ClusteringResults 
       description: datasetInfo.description,
       target_distribution,
     },
-    dendrogram: generateDendrogramData(50, nClusters), // Use subset for dendrogram clarity
+    dendrogram: generateDendrogramData(Math.min(n_samples, 30)), // Keep dendrogram small for clarity
     scatter_data_2d,
     cluster_labels,
     silhouette_scores,

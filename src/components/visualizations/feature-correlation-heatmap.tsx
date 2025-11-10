@@ -22,9 +22,9 @@ const getColors = (value: number | null) => {
     
     let textColor: string;
     if (isDarkTheme) {
-        textColor = l > 50 ? 'hsl(224 71.4% 4.1%)' : 'hsl(210 40% 98%)'; // Dark text on light colors, light text on dark colors
+        textColor = l > 50 ? 'hsl(224 71.4% 4.1%)' : 'hsl(210 40% 98%)';
     } else {
-        textColor = l > 50 ? 'hsl(224 71.4% 4.1%)' : 'hsl(0 0% 100%)'; // Dark text on light colors, white text on dark colors
+        textColor = l > 55 ? 'hsl(224 71.4% 4.1%)' : 'hsl(0 0% 100%)';
     }
 
     return {
@@ -41,45 +41,33 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
   return (
     <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
-        <CardTitle className="text-3xl font-bold tracking-tight">Feature Correlation Heatmap</CardTitle>
+        <CardTitle>Feature Correlation</CardTitle>
         <CardDescription>
-            <span className="font-bold block mt-2 text-primary">Definition:</span>
-            A correlation heatmap is a graphical representation of a correlation matrix, where the correlation coefficients between different variables are represented as colors.
-            <br /><br />
-            <span className="font-bold block text-primary">What It Explains:</span>
-            This chart shows how different features in your dataset relate to each other. It helps answer the question, "When one feature's value increases, what happens to another's?". Understanding these relationships provides deep context about the structure of your data.
-            <br /><br />
-            <span className="font-bold block text-primary">Summary from the Chart:</span>
-            Bright red cells indicate a strong positive correlation (e.g., +0.9), meaning as one feature increases, the other tends to increase. Bright blue cells show a strong negative correlation (e.g., -0.8), meaning as one increases, the other decreases. This helps spot redundant features and understand which variables move together.
+            This heatmap shows how features relate to each other. Bright red means a strong positive correlation (they increase together), while bright blue means a strong negative correlation (one increases as the other decreases).
         </CardDescription>
       </CardHeader>
-      <CardContent className="pt-6 overflow-x-auto">
+      <CardContent className="pt-4 overflow-x-auto">
         <TooltipProvider>
           <div className="grid gap-1" style={{gridTemplateColumns: `auto repeat(${features.length}, minmax(60px, 1fr))`}}>
-              {/* Top-left empty cell */}
               <div className="sticky left-0 bg-card z-10"></div>
-              {/* Column headers */}
               {features.map((feature, i) => (
                   <div key={`col-header-${i}`} className="text-xs text-muted-foreground truncate text-center pb-2 self-end" title={feature}>
                       {feature}
                   </div>
               ))}
               
-              {/* Matrix rows */}
               {features.map((feature, i) => (
                   <React.Fragment key={`row-${i}`}>
-                      {/* Row header */}
                       <div className="text-xs text-muted-foreground truncate text-right pr-2 self-center sticky left-0 bg-card z-10" title={feature}>
                           {feature}
                       </div>
-                      {/* Cells */}
                       {matrix[i].map((value, j) => {
                          const { backgroundColor, textColor } = getColors(value);
                          return (
                           <Tooltip key={`${i}-${j}`} delayDuration={100}>
                               <TooltipTrigger asChild>
                                   <div
-                                      className="w-full rounded-sm flex items-center justify-center aspect-square"
+                                      className="w-full rounded-sm flex items-center justify-center aspect-square transition-transform duration-200 hover:scale-110 hover:z-10 hover:shadow-lg"
                                       style={{ backgroundColor }}
                                   >
                                       <span className="text-xs font-mono" style={{ color: textColor }}>{value?.toFixed(2)}</span>

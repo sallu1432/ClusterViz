@@ -15,13 +15,13 @@ const FeatureDistributionCharts = ({ data }: FeatureDistributionChartsProps) => 
   return (
     <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
         <CardHeader>
-            <CardTitle className="text-3xl font-bold tracking-tight text-destructive">Feature Distributions</CardTitle>
-            <CardDescription>Histograms for the first 4 selected features.</CardDescription>
+            <CardTitle>Feature Distributions</CardTitle>
+            <CardDescription>These histograms show the distribution of values for individual features, which can reveal skewness, outliers, and the overall shape of the data for each variable.</CardDescription>
         </CardHeader>
-        <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6">
+        <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
             {data.map(({ feature, bins }) => (
             <div key={feature}>
-                <h3 className="text-sm font-medium text-center mb-2">{feature}</h3>
+                <h3 className="text-sm font-medium text-center mb-2 text-muted-foreground">{feature}</h3>
                 <div className="h-[200px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={bins} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
@@ -31,13 +31,14 @@ const FeatureDistributionCharts = ({ data }: FeatureDistributionChartsProps) => 
                         <Tooltip
                             cursor={{fill: 'hsl(var(--muted))'}}
                             contentStyle={{
-                                background: "hsl(var(--background) / 0.9)",
+                                background: "hsl(var(--background) / 0.8)",
                                 borderColor: "hsl(var(--border))",
                                 backdropFilter: "blur(4px)",
                                 borderRadius: "var(--radius)",
+                                fontSize: '12px'
                             }}
                         />
-                        <Bar dataKey="value" fill="hsl(var(--chart-2))" radius={[4, 4, 0, 0]} />
+                        <Bar dataKey="value" fill="hsl(var(--chart-2))" radius={[2, 2, 0, 0]} />
                     </BarChart>
                 </ResponsiveContainer>
                 </div>
