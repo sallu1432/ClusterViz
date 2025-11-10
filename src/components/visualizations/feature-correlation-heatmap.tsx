@@ -10,13 +10,27 @@ interface FeatureCorrelationHeatmapProps {
   data: ClusteringResults['feature_correlation'];
 }
 
-const getColor = (value: number | null) => {
-    if (value === null) return 'hsl(var(--muted))';
-    // Blue for negative, Red for positive, more vibrant
+const getColors = (value: number | null) => {
+    if (value === null) return { backgroundColor: 'hsl(var(--muted))', textColor: 'hsl(var(--muted-foreground))' };
+    
+    // Blue for negative, Red for positive
     const h = value > 0 ? 0 : 210;
     const s = 100;
-    const l = 100 - (Math.abs(value) * 60 + 15);
-    return `hsl(${h}, ${s}%, ${l}%)`;
+    const l = 100 - (Math.abs(value) * 60 + 15); // Lightness from 85% (for 0) to 25% (for 1/-1)
+
+    const isDarkTheme = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
+    
+    let textColor: string;
+    if (isDarkTheme) {
+        textColor = l > 50 ? 'hsl(224 71.4% 4.1%)' : 'hsl(210 40% 98%)'; // Dark text on light colors, light text on dark colors
+    } else {
+        textColor = l > 50 ? 'hsl(224 71.4% 4.1%)' : 'hsl(0 0% 100%)'; // Dark text on light colors, white text on dark colors
+    }
+
+    return {
+        backgroundColor: `hsl(${h}, ${s}%, ${l}%)`,
+        textColor: textColor,
+    };
 };
 
 const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => {
@@ -59,23 +73,24 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
                           {feature}
                       </div>
                       {/* Cells */}
-                      {matrix[i].map((value, j) => (
+                      {matrix[i].map((value, j) => {
+                         const { backgroundColor, textColor } = getColors(value);
+                         return (
                           <Tooltip key={`${i}-${j}`} delayDuration={100}>
                               <TooltipTrigger asChild>
                                   <div
                                       className="w-full rounded-sm flex items-center justify-center aspect-square"
-                                      style={{ 
-                                          backgroundColor: getColor(value),
-                                      }}
+                                      style={{ backgroundColor }}
                                   >
-                                      <span className="text-xs font-mono text-foreground/80 mix-blend-difference">{value?.toFixed(2)}</span>
+                                      <span className="text-xs font-mono" style={{ color: textColor }}>{value?.toFixed(2)}</span>
                                   </div>
                               </TooltipTrigger>
                               <TooltipContent>
                                   <p className="font-medium">{features[i]} &amp; {features[j]}: <span className="font-mono">{value?.toFixed(3) ?? 'N/A'}</span></p>
                               </TooltipContent>
                           </Tooltip>
-                      ))}
+                         )
+                      })}
                   </React.Fragment>
               ))}
           </div>
