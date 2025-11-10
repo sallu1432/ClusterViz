@@ -40,7 +40,7 @@ export default function FeaturesPage() {
                 <section className="max-w-4xl mx-auto">
                     <div className="text-center mb-8">
                         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tighter mb-4">
-                            Currently the model is designed with three datasets iris, wine, breast cancer.
+                            Currently the model is designed with three datasets Iris, Wine and Breast cancer.
                         </h1>
                         <p className="max-w-2xl mx-auto text-lg text-muted-foreground">
                             Understand the building blocks of our analysis. Select a dataset to see what each feature represents and why it's important for the clustering model.
