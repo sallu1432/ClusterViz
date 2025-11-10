@@ -44,7 +44,7 @@ export default function FeaturesPage() {
                             Currently the model is designed with three datasets: Iris, Wine and Breast Cancer.
                         </h1>
                         <p className="max-w-2xl mx-auto text-lg text-muted-foreground">
-                            Understand the building blocks of our analysis. Select a dataset to see what each feature represents and why it's important for the clustering model.
+                            Understand the building blocks of our analysis. Select a dataset to see what each feature of that dataset represents and why it's important for the clustering model.
                         </p>
                     </div>
 
