@@ -10,11 +10,15 @@ interface ClusterHeatmapProps {
   data: ClusteringResults['cluster_heatmap'];
 }
 
-const getColor = (value: number) => {
+const getColors = (value: number) => {
   const hue = 200; // Blueish
   const saturation = 70;
   const lightness = 95 - (value * 50); // Lighter for lower values, darker for higher
-  return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+  const textColor = lightness < 50 ? 'hsl(var(--card-foreground))' : 'hsl(var(--foreground))';
+  return { 
+    backgroundColor: `hsl(${hue}, ${saturation}%, ${lightness}%)`,
+    textColor: textColor
+  };
 };
 
 const ClusterHeatmap = ({ data }: ClusterHeatmapProps) => {
@@ -53,11 +57,12 @@ const ClusterHeatmap = ({ data }: ClusterHeatmapProps) => {
                     <TableCell className="font-medium">{row.cluster}</TableCell>
                     {features.map(feature => {
                       const value = row[feature] as number;
+                      const { backgroundColor, textColor } = getColors(value);
                       return (
                         <TableCell key={feature} className="p-0 text-center">
                            <Tooltip delayDuration={100}>
                             <TooltipTrigger asChild>
-                                <div style={{ backgroundColor: getColor(value) }} className="h-14 flex items-center justify-center text-sm text-foreground/80 font-mono transition-transform hover:scale-110 hover:z-10">
+                                <div style={{ backgroundColor, color: textColor }} className="h-14 flex items-center justify-center text-sm font-mono transition-transform hover:scale-110 hover:z-10">
                                 {value.toFixed(2)}
                                 </div>
                             </TooltipTrigger>
