@@ -26,14 +26,12 @@ type State = {
   };
   results: ClusteringResults | null;
   error: string | null;
-  showExtraGraphs: boolean;
 };
 
 type Action =
   | { type: "SET_PARAM"; payload: Partial<State["params"]> }
   | { type: "SET_RESULTS"; payload: ClusteringResults | null }
-  | { type: "SET_ERROR"; payload: string | null }
-  | { type: "TOGGLE_EXTRA_GRAPHS" };
+  | { type: "SET_ERROR"; payload: string | null };
 
 const initialState: State = {
   params: {
@@ -45,7 +43,6 @@ const initialState: State = {
   },
   results: null,
   error: null,
-  showExtraGraphs: false,
 };
 
 const reducer = (state: State, action: Action): State => {
@@ -60,8 +57,6 @@ const reducer = (state: State, action: Action): State => {
       return { ...state, results: action.payload, error: null };
     case "SET_ERROR":
       return { ...state, error: action.payload, results: null };
-    case "TOGGLE_EXTRA_GRAPHS":
-      return { ...state, showExtraGraphs: !state.showExtraGraphs };
     default:
       return state;
   }
@@ -106,8 +101,6 @@ export function Dashboard() {
         params={state.params}
         dispatch={dispatch}
         isPending={isPending}
-        showExtraGraphs={state.showExtraGraphs}
-        onToggleExtraGraphs={() => dispatch({ type: "TOGGLE_EXTRA_GRAPHS" })}
       />
       <main className="container mx-auto p-4 md:p-6 lg:p-8">
         {isPending && !state.results && <DashboardSkeleton />}
@@ -125,13 +118,9 @@ export function Dashboard() {
             
             <ClusterProfileCards data={state.results.cluster_summary} />
 
-            {state.showExtraGraphs && (
-              <>
-                <FeatureCorrelationHeatmap data={state.results.feature_correlation} />
-                <ClusterHeatmap data={state.results.cluster_heatmap} />
-                <FeatureDistributionCharts data={state.results.feature_distributions} />
-              </>
-            )}
+            <FeatureCorrelationHeatmap data={state.results.feature_correlation} />
+            <ClusterHeatmap data={state.results.cluster_heatmap} />
+            <FeatureDistributionCharts data={state.results.feature_distributions} />
           </div>
         )}
       </main>

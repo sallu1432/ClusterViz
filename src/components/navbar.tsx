@@ -15,11 +15,10 @@ import {
 import { Slider } from '@/components/ui/slider';
 import { DATASETS, LINKAGE_METHODS, DISTANCE_METRICS } from '@/app/lib/datasets';
 import { LINKAGE_DEFINITIONS, METRIC_DEFINITIONS } from '@/app/lib/definitions';
-import { BookOpen, ArrowLeft, ArrowRight } from 'lucide-react';
+import { BookOpen, ArrowLeft } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Checkbox } from './ui/checkbox';
 import { ScrollArea } from './ui/scroll-area';
-import { Switch } from './ui/switch';
 import { Separator } from './ui/separator';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
 import { ThemeToggle } from './theme-toggle';
@@ -34,11 +33,9 @@ type NavbarProps = {
   };
   dispatch: React.Dispatch<any>;
   isPending: boolean;
-  showExtraGraphs: boolean;
-  onToggleExtraGraphs: () => void;
 };
 
-export function Navbar({ params, dispatch, isPending, showExtraGraphs, onToggleExtraGraphs }: NavbarProps) {
+export function Navbar({ params, dispatch, isPending }: NavbarProps) {
 
   const handleFeatureChange = (feature: string) => {
     const newFeatures = params.features.includes(feature)
@@ -61,15 +58,6 @@ export function Navbar({ params, dispatch, isPending, showExtraGraphs, onToggleE
                     <ArrowLeft className="mr-2" /> Back
                 </Button>
             </Link>
-            <div className="flex items-center gap-2">
-                <Label htmlFor="extra-graphs-toggle" className="text-sm whitespace-nowrap">Advanced Views</Label>
-                <Switch
-                id="extra-graphs-toggle"
-                checked={showExtraGraphs}
-                onCheckedChange={onToggleExtraGraphs}
-                disabled={isPending}
-                />
-            </div>
           </div>
         </div>
         <Separator />
