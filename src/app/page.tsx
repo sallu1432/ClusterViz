@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Separator } from '@/components/ui/separator';
 import { FileText, Sigma, BrainCircuit, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 export default function IntroductionPage() {
   return (
@@ -13,6 +14,7 @@ export default function IntroductionPage() {
             ClusterViz
           </Link>
           <div className="flex items-center gap-4">
+             <ThemeToggle />
              <Link href="/dashboard">
                 <Button variant="outline">
                     Skip to Dashboard

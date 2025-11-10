@@ -22,6 +22,7 @@ import { ScrollArea } from './ui/scroll-area';
 import { Switch } from './ui/switch';
 import { Separator } from './ui/separator';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
+import { ThemeToggle } from './theme-toggle';
 
 type NavbarProps = {
   params: {
@@ -54,6 +55,7 @@ export function Navbar({ params, dispatch, isPending, showExtraGraphs, onToggleE
             <Link href="/" className="text-2xl font-bold tracking-tight">ClusterViz</Link>
           </div>
           <div className="flex items-center gap-4">
+            <ThemeToggle />
             <Link href="/features">
                 <Button variant="outline">
                     <ArrowLeft className="mr-2" /> Back

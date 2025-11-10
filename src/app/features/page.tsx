@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { DATASETS } from "../lib/datasets";
 import type { Dataset } from "@/types";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function FeaturesPage() {
     const [selectedDatasetKey, setSelectedDatasetKey] = useState<keyof typeof DATASETS>('iris');
@@ -20,6 +21,7 @@ export default function FeaturesPage() {
                         ClusterViz
                     </Link>
                     <div className="flex items-center gap-4">
+                        <ThemeToggle />
                         <Link href="/">
                             <Button variant="outline">
                                 <ArrowLeft className="mr-2" /> Back
