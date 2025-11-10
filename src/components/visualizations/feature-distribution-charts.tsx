@@ -17,9 +17,7 @@ const FeatureDistributionCharts = ({ data }: FeatureDistributionChartsProps) => 
         <CardHeader>
             <CardTitle>Feature Distributions</CardTitle>
             <CardDescription>
-                <span className="font-bold text-primary">Definition:</span> A histogram that shows the frequency of values for a feature, grouped into bins.
-                <br />
-                <span className="font-bold text-primary">What It Explains:</span> These charts reveal the underlying distribution of each feature, helping to identify skewness, outliers, and common value ranges.
+                <span className="font-bold text-primary">Definition:</span> A histogram that shows the frequency of values for a feature, grouped into bins. These charts reveal the underlying distribution of each feature, helping to identify skewness, outliers, and common value ranges.
             </CardDescription>
         </CardHeader>
         <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">

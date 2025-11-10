@@ -19,11 +19,7 @@ const SilhouettePlot = ({ data }: SilhouettePlotProps) => {
             <CardHeader>
                 <CardTitle>Cluster Quality (Silhouette Score)</CardTitle>
                 <CardDescription>
-                    <span className="font-bold text-primary">Definition:</span> A measure of how similar an object is to its own cluster compared to other clusters.
-                    <br />
-                    <span className="font-bold text-primary">What It Explains:</span> This score (from -1 to 1) measures cluster quality. High scores mean clusters are dense and well-separated.
-                    <br />
-                    <span className="font-bold text-primary">Summary from the Chart:</span> Scores near 0 suggest overlapping clusters. For example, a score of 0.8 indicates excellent separation, while 0.2 suggests poor clustering. The dashed line is the average score for this analysis.
+                    <span className="font-bold text-primary">Definition:</span> A measure of how similar an object is to its own cluster compared to other clusters. This score (from -1 to 1) measures cluster quality. High scores mean clusters are dense and well-separated, while scores near 0 suggest overlapping clusters.
                 </CardDescription>
             </CardHeader>
             <CardContent className="flex-grow flex flex-col justify-center pt-2">
