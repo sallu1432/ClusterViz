@@ -28,7 +28,16 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
     <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
         <CardTitle>Feature Correlation Heatmap</CardTitle>
-        <CardDescription>This heatmap shows how your features interact with each other. Bright red means two features have a strong positive correlation (when one goes up, the other tends to go up). Bright blue indicates a strong negative correlation (when one goes up, the other tends to go down). This is important because highly correlated features can sometimes be redundant, and understanding these relationships provides deeper context about the structure of your dataset before you even begin clustering.</CardDescription>
+        <CardDescription>
+            <span className="font-semibold block mt-2">Definition:</span>
+            A correlation heatmap is a graphical representation of a correlation matrix, where the correlation coefficients between different variables are represented as colors.
+            <br /><br />
+            <span className="font-semibold block">What It Explains:</span>
+            This chart shows how different features in your dataset relate to each other. It helps answer the question, "When one feature's value increases, what happens to another's?". Understanding these relationships provides deep context about the structure of your data.
+            <br /><br />
+            <span className="font-semibold block">Summary from the Chart:</span>
+            Bright red cells indicate a strong positive correlation (as one feature increases, the other tends to increase). Bright blue indicates a strong negative correlation (as one increases, the other tends to decrease). This is useful for spotting redundant features and understanding which variables move together.
+        </CardDescription>
       </CardHeader>
       <CardContent className="pt-6 overflow-x-auto">
         <TooltipProvider>

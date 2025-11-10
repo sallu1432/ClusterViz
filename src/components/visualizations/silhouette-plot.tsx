@@ -18,7 +18,16 @@ const SilhouettePlot = ({ data }: SilhouettePlotProps) => {
         <Card className="h-full shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
             <CardHeader>
                 <CardTitle>Silhouette Score</CardTitle>
-                <CardDescription>This chart uses the Silhouette Score to answer that question. It measures how well-defined your clusters are. A score near +1 means a cluster is dense and well-separated. Scores near 0 suggest clusters overlap, and negative scores mean samples might be in the wrong cluster. The red dashed line shows the average score, giving you a quick benchmark for the overall quality of your clustering result.</CardDescription>
+                <CardDescription>
+                    <span className="font-semibold block mt-2">Definition:</span>
+                    The Silhouette Score measures how similar a data point is to its own cluster compared to other clusters.
+                    <br /><br />
+                    <span className="font-semibold block">What It Explains:</span>
+                    This chart shows the silhouette score for each cluster, answering the question: "How meaningful are my clusters?". A score near +1 indicates that the cluster is dense and well-separated from others. A score near 0 suggests overlapping clusters, and a negative score implies that samples might have been assigned to the wrong cluster.
+                    <br /><br />
+                    <span className="font-semibold block">Summary from the Chart:</span>
+                    Each bar represents a cluster's average silhouette score. The red dashed line shows the average score across all clusters, providing a quick quality benchmark. Look for clusters with scores well above the average as they are the most distinct.
+                </CardDescription>
             </CardHeader>
             <CardContent className="flex-grow flex flex-col justify-center">
                 <div className="h-[250px] w-full">

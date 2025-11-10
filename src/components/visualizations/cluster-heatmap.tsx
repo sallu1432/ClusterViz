@@ -26,7 +26,16 @@ const ClusterHeatmap = ({ data }: ClusterHeatmapProps) => {
     <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
         <CardTitle>Cluster Heatmap</CardTitle>
-        <CardDescription>This heatmap gives each cluster a "fingerprint." It shows the average value for each feature within a cluster, with darker cells indicating higher average values. By scanning a row, you can see the unique profile of a cluster. For example, is Cluster 0 defined by high "petal length" and low "sepal width"? Comparing rows reveals the key differences between clusters, helping you understand what makes each group distinct and giving you a narrative for what the model has discovered.</CardDescription>
+        <CardDescription>
+            <span className="font-semibold block mt-2">Definition:</span>
+            This heatmap visualizes the central tendency (mean) of each feature for each cluster. The values are typically scaled from 0 to 1 for consistent comparison.
+            <br /><br />
+            <span className="font-semibold block">What It Explains:</span>
+            It provides a "fingerprint" for each cluster, showing the feature values that are most characteristic of that group. By looking across a row, you can quickly understand the unique profile of a cluster.
+            <br /><br />
+            <span className="font-semibold block">Summary from the Chart:</span>
+            Darker cells indicate a higher average value for a feature within that cluster, while lighter cells indicate a lower average. By comparing the color patterns between rows (clusters), you can identify the key features that differentiate one group from another, giving you a clear narrative for what the model has discovered.
+        </CardDescription>
       </CardHeader>
       <CardContent className="pt-6">
         <TooltipProvider>
