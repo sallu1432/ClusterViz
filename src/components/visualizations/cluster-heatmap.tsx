@@ -14,7 +14,11 @@ const getColors = (value: number) => {
   const hue = 200; // Blueish
   const saturation = 70;
   const lightness = 95 - (value * 50); // Lighter for lower values, darker for higher
-  const textColor = lightness < 50 ? 'hsl(var(--card-foreground))' : 'hsl(var(--foreground))';
+  // If the cell is very light (lightness > 80), use a dark foreground text.
+  // Otherwise, if the cell is moderately dark (lightness < 50), use the light card-foreground text.
+  // For mid-range lightness, use the default foreground color.
+  const textColor = lightness > 80 ? 'hsl(224 71.4% 4.1%)' : lightness < 50 ? 'hsl(var(--card-foreground))' : 'hsl(var(--foreground))';
+
   return { 
     backgroundColor: `hsl(${hue}, ${saturation}%, ${lightness}%)`,
     textColor: textColor
