@@ -22,7 +22,9 @@ const DendrogramChart = ({ data }: DendrogramChartProps) => {
       <CardHeader>
         <CardTitle>Hierarchical Dendrogram</CardTitle>
         <CardDescription>
-            <span className="font-bold text-primary">What it shows:</span> A tree diagram illustrating how data points are merged into clusters. The y-axis represents the distance between clusters; long vertical lines indicate that two very different clusters were merged, suggesting a more distinct separation.
+            <span className="font-bold text-primary">Definition:</span> A tree diagram that illustrates the arrangement of the clusters produced by the corresponding analyses.
+            <br />
+            <span className="font-bold text-primary">What it shows:</span> This chart visualizes how data points are progressively merged into clusters. The vertical lines represent the distance between clusters; the longer the line, the more different the clusters are. This helps identify the optimal number of clusters and understand the data's hierarchy.
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-grow">

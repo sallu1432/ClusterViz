@@ -3,7 +3,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { ClusteringResults } from "@/types";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LabelList, ReferenceLine } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LabelList, ReferenceLine, Label } from 'recharts';
 
 interface SilhouettePlotProps {
     data: ClusteringResults['silhouette_scores'];
@@ -19,7 +19,9 @@ const SilhouettePlot = ({ data }: SilhouettePlotProps) => {
             <CardHeader>
                 <CardTitle>Cluster Quality (Silhouette Score)</CardTitle>
                 <CardDescription>
-                    <span className="font-bold text-primary">What it shows:</span> This chart measures how similar an object is to its own cluster compared to other clusters. Scores range from -1 to 1. High scores indicate that clusters are dense and well-separated, while scores near 0 suggest overlapping clusters.
+                    <span className="font-bold text-primary">Definition:</span> A measure of how similar a data point is to its own cluster compared to others. Scores range from -1 to 1.
+                    <br />
+                    <span className="font-bold text-primary">What it shows:</span> This plot displays the average silhouette score for each cluster. High scores (near 1) indicate dense, well-separated clusters. Scores near 0 suggest overlapping clusters, and negative scores may indicate that data points have been assigned to the wrong cluster.
                 </CardDescription>
             </CardHeader>
             <CardContent className="flex-grow flex flex-col justify-center pt-2">
@@ -40,7 +42,7 @@ const SilhouettePlot = ({ data }: SilhouettePlotProps) => {
                                 cursor={{ fill: 'hsl(var(--muted))' }}
                             />
                              <ReferenceLine x={averageScore} stroke="hsl(var(--accent))" strokeWidth={1.5} strokeDasharray="3 3">
-                                <LabelList value={`Avg: ${averageScore.toFixed(2)}`} position="insideTopRight" fill="hsl(var(--accent))" fontSize={12}/>
+                                <Label value={`Avg: ${averageScore.toFixed(2)}`} position="insideTopRight" fill="hsl(var(--accent))" fontSize={12}/>
                             </ReferenceLine>
                             <Bar dataKey="score" fill="hsl(var(--chart-1))" radius={[0, 4, 4, 0]}>
                                 <LabelList dataKey="score" position="right" formatter={(value: number) => value.toFixed(2)} style={{ fill: 'hsl(var(--foreground))', fontSize: 12 }} />

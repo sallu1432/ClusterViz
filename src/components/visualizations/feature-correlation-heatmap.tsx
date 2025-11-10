@@ -43,7 +43,9 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
         <CardHeader>
             <CardTitle>Feature Correlation Heatmap</CardTitle>
             <CardDescription>
-                <span className="font-bold text-primary">What it shows:</span> The relationship between different features. A dark red cell indicates a strong positive correlation (as one feature increases, so does the other), while dark blue indicates a strong negative correlation. This helps identify redundant features and important relationships.
+                <span className="font-bold text-primary">Definition:</span> A matrix that shows the correlation coefficient between pairs of features.
+                <br />
+                <span className="font-bold text-primary">What it shows:</span> The relationship between different features. A dark red cell indicates a strong positive correlation (as one feature increases, so does the other), while dark blue indicates a strong negative correlation. This helps identify redundant features and important relationships in the data.
             </CardDescription>
         </CardHeader>
         <CardContent>

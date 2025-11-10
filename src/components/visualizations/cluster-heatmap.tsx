@@ -40,7 +40,9 @@ const ClusterHeatmap = ({ data }: ClusterHeatmapProps) => {
       <CardHeader>
         <CardTitle>Cluster Feature Heatmap</CardTitle>
         <CardDescription>
-          <span className="font-bold text-primary">What it shows:</span> This heatmap uses color intensity to show the average value of each feature within a cluster (scaled from 0 to 1). Darker cells indicate higher average values, which helps reveal the defining "fingerprint" or characteristics of each group.
+          <span className="font-bold text-primary">Definition:</span> A graphical representation of data where values are depicted by color.
+          <br />
+          <span className="font-bold text-primary">What it shows:</span> This heatmap uses color intensity to show the average value of each feature within a cluster (scaled from 0 to 1). Darker cells indicate higher average values. This helps reveal the defining "fingerprint" or characteristics that make each cluster unique.
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-4">
