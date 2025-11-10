@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -23,7 +22,7 @@ const DendrogramChart = ({ data }: DendrogramChartProps) => {
       <CardHeader>
         <CardTitle>Hierarchical Dendrogram</CardTitle>
         <CardDescription>
-            <span className="font-bold text-primary">Definition:</span> A tree diagram that illustrates the arrangement of clusters produced by hierarchical clustering. This diagram shows how data points are merged into clusters. The y-axis represents the distance between them; long vertical lines indicate that two very different clusters were merged.
+            <span className="font-bold text-primary">What it shows:</span> A tree diagram illustrating how data points are merged into clusters. The y-axis represents the distance between clusters; long vertical lines indicate that two very different clusters were merged, suggesting a more distinct separation.
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-grow">

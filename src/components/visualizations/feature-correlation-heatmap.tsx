@@ -40,58 +40,59 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
   
   return (
     <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
-      <CardHeader>
-        <CardTitle>Feature Correlation</CardTitle>
-        <CardDescription>
-            <span className="font-bold text-primary">Definition:</span> A matrix showing the correlation between variables. This heatmap shows how features relate to each other. Bright red means a strong positive correlation (they increase together), while bright blue means a strong negative correlation (one increases as the other decreases).
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="pt-4 overflow-x-auto">
-        <TooltipProvider>
-          <div className="grid gap-1" style={{gridTemplateColumns: `auto repeat(${features.length}, minmax(60px, 1fr))`}}>
-              <div className="sticky left-0 bg-card z-10"></div>
-              {features.map((feature, i) => (
-                  <div key={`col-header-${i}`} className="text-xs text-muted-foreground truncate text-center pb-2 self-end" title={feature}>
-                      {feature}
-                  </div>
-              ))}
-              
-              {features.map((feature, i) => (
-                  <React.Fragment key={`row-${i}`}>
-                      <div className="text-xs text-muted-foreground truncate text-right pr-2 self-center sticky left-0 bg-card z-10" title={feature}>
-                          {feature}
-                      </div>
-                      {matrix[i].map((value, j) => {
-                         const { backgroundColor, textColor } = getColors(value);
-                         return (
-                          <Tooltip key={`${i}-${j}`} delayDuration={100}>
-                              <TooltipTrigger asChild>
-                                  <div
-                                      className="w-full rounded-sm flex items-center justify-center aspect-square transition-transform duration-200 hover:scale-110 hover:z-10 hover:shadow-lg"
-                                      style={{ backgroundColor }}
-                                  >
-                                      <span className="text-xs font-mono" style={{ color: textColor }}>{value?.toFixed(2)}</span>
-                                  </div>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                  <p className="font-medium">{features[i]} &amp; {features[j]}: <span className="font-mono">{value?.toFixed(3) ?? 'N/A'}</span></p>
-                              </TooltipContent>
-                          </Tooltip>
-                         )
-                      })}
-                  </React.Fragment>
-              ))}
-          </div>
-        </TooltipProvider>
-
-        <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground w-64 mx-auto mt-4">
-          <span className="font-mono">-1.0</span>
-          <div className="flex-1 h-3 rounded-full overflow-hidden border">
-             <div style={{ background: 'linear-gradient(to right, hsl(210, 100%, 25%), hsl(210, 100%, 85%), white, hsl(0, 100%, 85%), hsl(0, 100%, 25%))' }} className="w-full h-full" />
-          </div>
-          <span className="font-mono">+1.0</span>
-        </div>
-      </CardContent>
+        <CardHeader>
+            <CardTitle>Feature Correlation Heatmap</CardTitle>
+            <CardDescription>
+                <span className="font-bold text-primary">What it shows:</span> The relationship between different features. A dark red cell indicates a strong positive correlation (as one feature increases, so does the other), while dark blue indicates a strong negative correlation. This helps identify redundant features and important relationships.
+            </CardDescription>
+        </CardHeader>
+        <CardContent>
+            <TooltipProvider>
+                <div className="overflow-x-auto rounded-md border">
+                    <table className="w-full border-collapse">
+                        <thead>
+                            <tr className="border-b">
+                                <th className="p-2 border-r w-24"></th>
+                                {features.map((feature) => (
+                                    <th key={feature} className="p-2 text-sm font-medium text-muted-foreground" style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>
+                                        <span className="truncate">{feature}</span>
+                                    </th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {features.map((feature, i) => (
+                                <tr key={feature} className="border-b">
+                                    <td className="p-2 text-sm font-medium text-muted-foreground border-r whitespace-nowrap">{feature}</td>
+                                    {matrix[i].map((value, j) => {
+                                        const { backgroundColor, textColor } = getColors(value);
+                                        return (
+                                            <td key={j} className="p-0 text-center">
+                                                <Tooltip delayDuration={100}>
+                                                    <TooltipTrigger asChild>
+                                                        <div
+                                                            style={{ backgroundColor, color: textColor }}
+                                                            className="h-14 w-full flex items-center justify-center text-xs font-mono transition-transform duration-200 hover:scale-110 hover:z-10 hover:shadow-lg hover:rounded-sm"
+                                                        >
+                                                            {value !== null ? value.toFixed(2) : "N/A"}
+                                                        </div>
+                                                    </TooltipTrigger>
+                                                    <TooltipContent>
+                                                        <p>
+                                                            Corr({feature}, {features[j]}): {value?.toFixed(3) ?? "N/A"}
+                                                        </p>
+                                                    </TooltipContent>
+                                                </Tooltip>
+                                            </td>
+                                        );
+                                    })}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </TooltipProvider>
+        </CardContent>
     </Card>
   );
 };
