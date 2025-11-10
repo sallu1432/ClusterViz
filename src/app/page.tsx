@@ -37,6 +37,9 @@ export default function IntroductionPage() {
           <p className="max-w-3xl mx-auto text-2xl text-muted-foreground mb-8">
             Understanding the dataset through hierarchical clustering
           </p>
+          <p className="max-w-3xl mx-auto text-lg text-muted-foreground mb-12">
+            ClusterViz is an interactive tool designed to help you explore and understand your datasets. By leveraging hierarchical clustering, you can adjust parameters on the fly, visualize complex data structures with dendrograms and heatmaps, and uncover meaningful insights—all in one intuitive interface.
+          </p>
           <div className="flex justify-center gap-4">
             <Link href="/dashboard">
               <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
