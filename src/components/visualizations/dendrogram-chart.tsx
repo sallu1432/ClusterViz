@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -24,7 +25,7 @@ const DendrogramChart = ({ data }: DendrogramChartProps) => {
         <CardDescription>
             <span className="font-bold text-primary">Definition:</span> A tree diagram that illustrates the arrangement of the clusters produced by the corresponding analyses.
             <br />
-            <span className="font-bold text-primary">What it shows:</span> This chart visualizes how data points are progressively merged into clusters. The vertical lines represent the distance between clusters; the longer the line, the more different the clusters are. This helps identify the optimal number of clusters and understand the data's hierarchy.
+            <span className="font-bold text-primary">What it shows:</span> This chart visualizes how data points are progressively merged into clusters. The vertical lines represent the distance between clusters; longer lines mean more dissimilarity. The dashed line is a cutoff threshold, which "cuts" the tree to form the desired number of clusters.
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-grow">
