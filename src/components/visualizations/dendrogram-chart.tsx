@@ -21,7 +21,7 @@ const DendrogramChart = ({ data }: DendrogramChartProps) => {
   return (
     <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
-        <CardTitle>How are the Clusters Formed?</CardTitle>
+        <CardTitle>Dendrogram</CardTitle>
         <CardDescription>
           This dendrogram reveals the story of how your data was grouped. Think of it as a family tree for your data points. At the bottom, each point is on its own. As you move up, the algorithm pairs up the most similar points and clusters, creating larger groups. The height of each merge (the vertical lines) tells you how dissimilar the joined groups were. Long vertical lines indicate that two very different groups were merged, which can signal natural divisions in the data. The red dashed line shows exactly where the algorithm "cut" the tree to form the final number of clusters you selected.
         </CardDescription>
