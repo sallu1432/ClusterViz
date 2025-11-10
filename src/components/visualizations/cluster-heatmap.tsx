@@ -40,7 +40,11 @@ const ClusterHeatmap = ({ data }: ClusterHeatmapProps) => {
       <CardHeader>
         <CardTitle>Cluster Feature Heatmap</CardTitle>
         <CardDescription>
-          This heatmap shows the average value (scaled 0-1) for each feature within each cluster. Darker cells indicate higher values, revealing the "fingerprint" that defines each group.
+          <span className="font-bold text-primary">Definition:</span> A graphical representation of data where individual values are represented as colors.
+          <br />
+          <span className="font-bold text-primary">What It Explains:</span> This heatmap shows the average value (scaled 0-1) for each feature within each cluster. Darker cells indicate higher values, revealing the "fingerprint" that defines each group.
+          <br />
+          <span className="font-bold text-primary">Summary from the Chart:</span> A dark blue cell with a value of 0.95 in 'petal length' for Cluster 1 means this feature is a strong defining characteristic for that cluster.
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-4">
@@ -49,7 +53,7 @@ const ClusterHeatmap = ({ data }: ClusterHeatmapProps) => {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="font-bold">Cluster</TableHead>
+                  <TableHead className="font-bold whitespace-nowrap">Cluster</TableHead>
                   {features.map(feature => <TableHead key={feature} className="text-center font-bold">{feature}</TableHead>)}
                 </TableRow>
               </TableHeader>

@@ -43,7 +43,11 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
       <CardHeader>
         <CardTitle>Feature Correlation</CardTitle>
         <CardDescription>
-            This heatmap shows how features relate to each other. Bright red means a strong positive correlation (they increase together), while bright blue means a strong negative correlation (one increases as the other decreases).
+            <span className="font-bold text-primary">Definition:</span> A matrix that shows the correlation coefficient between variables, with each cell representing the relationship between two variables.
+            <br />
+            <span className="font-bold text-primary">What It Explains:</span> This heatmap shows how features relate to each other. Bright red means a strong positive correlation (they increase together), while bright blue means a strong negative correlation (one increases as the other decreases).
+            <br />
+            <span className="font-bold text-primary">Summary from the Chart:</span> A bright red cell with a value of 0.96 indicates a very strong positive correlation, meaning the two features are almost directly proportional. A value of -0.8 in a bright blue cell means they have a strong inverse relationship.
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-4 overflow-x-auto">
