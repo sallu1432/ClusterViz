@@ -15,7 +15,6 @@ import DatasetOverview from "./insights/dataset-overview";
 import FeatureCorrelationHeatmap from "./visualizations/feature-correlation-heatmap";
 import FeatureDistributionCharts from "./visualizations/feature-distribution-charts";
 import ClusterProfileCards from "./insights/cluster-profile-cards";
-import ScatterPlot2D from "./visualizations/scatter-plot-2d";
 
 type State = {
   params: {
@@ -120,13 +119,8 @@ export function Dashboard() {
                 <SilhouettePlot data={state.results.silhouette_scores} />
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-              <div className="lg:col-span-3">
-                 <ScatterPlot2D data={state.results.scatter_data_2d} />
-              </div>
-               <div className="lg:col-span-2">
-                <DendrogramChart data={state.results.dendrogram} />
-              </div>
+            <div className="grid grid-cols-1 gap-8">
+              <DendrogramChart data={state.results.dendrogram} />
             </div>
             
             <ClusterProfileCards data={state.results.cluster_summary} />
@@ -162,10 +156,7 @@ const DashboardSkeleton = () => (
         <Skeleton className="h-[300px] w-full rounded-lg" />
         <Skeleton className="h-[300px] w-full rounded-lg" />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-        <Skeleton className="h-[400px] w-full rounded-lg lg:col-span-3" />
-        <Skeleton className="h-[400px] w-full rounded-lg lg:col-span-2" />
-      </div>
+      <Skeleton className="h-[400px] w-full rounded-lg" />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <Skeleton className="h-[200px] w-full rounded-lg" />
         <Skeleton className="h-[200px] w-full rounded-lg" />
@@ -173,4 +164,3 @@ const DashboardSkeleton = () => (
       </div>
     </div>
   );
-
