@@ -29,13 +29,13 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
       <CardHeader>
         <CardTitle className="text-3xl font-bold tracking-tight">Feature Correlation Heatmap</CardTitle>
         <CardDescription>
-            <span className="font-semibold block mt-2">Definition:</span>
+            <span className="font-bold block mt-2">Definition:</span>
             A correlation heatmap is a graphical representation of a correlation matrix, where the correlation coefficients between different variables are represented as colors.
             <br /><br />
-            <span className="font-semibold block">What It Explains:</span>
+            <span className="font-bold block">What It Explains:</span>
             This chart shows how different features in your dataset relate to each other. It helps answer the question, "When one feature's value increases, what happens to another's?". Understanding these relationships provides deep context about the structure of your data.
             <br /><br />
-            <span className="font-semibold block">Summary from the Chart:</span>
+            <span className="font-bold block">Summary from the Chart:</span>
             Bright red cells indicate a strong positive correlation (as one feature increases, the other tends to increase). Bright blue indicates a strong negative correlation (as one increases, the other tends to decrease). This is useful for spotting redundant features and understanding which variables move together.
         </CardDescription>
       </CardHeader>

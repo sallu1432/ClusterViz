@@ -14,10 +14,24 @@ const getColors = (value: number) => {
   const hue = 200; // Blueish
   const saturation = 70;
   const lightness = 95 - (value * 50); // Lighter for lower values, darker for higher
-  // If the cell is very light (lightness > 80), use a dark foreground text.
-  // Otherwise, if the cell is moderately dark (lightness < 50), use the light card-foreground text.
-  // For mid-range lightness, use the default foreground color.
-  const textColor = lightness > 80 ? 'hsl(224 71.4% 4.1%)' : lightness < 50 ? 'hsl(var(--card-foreground))' : 'hsl(var(--foreground))';
+  
+  const isDarkTheme = document.documentElement.classList.contains('dark');
+  
+  let textColor = 'hsl(var(--foreground))';
+  if (isDarkTheme) {
+    if (lightness > 70) {
+      textColor = 'hsl(224 71.4% 4.1%)'; // dark text for very light cells
+    } else {
+      textColor = 'hsl(var(--card-foreground))'; // light text for darker cells
+    }
+  } else {
+     if (lightness < 50) {
+      textColor = 'hsl(var(--card-foreground))'; // light text for dark cells
+     } else {
+      textColor = 'hsl(224 71.4% 4.1%)'; // dark text for light cells
+     }
+  }
+
 
   return { 
     backgroundColor: `hsl(${hue}, ${saturation}%, ${lightness}%)`,
@@ -35,13 +49,13 @@ const ClusterHeatmap = ({ data }: ClusterHeatmapProps) => {
       <CardHeader>
         <CardTitle className="text-3xl font-bold tracking-tight">Cluster Heatmap</CardTitle>
         <CardDescription>
-            <span className="font-semibold block mt-2">Definition:</span>
+            <span className="font-bold block mt-2">Definition:</span>
             This heatmap visualizes the central tendency (mean) of each feature for each cluster. The values are typically scaled from 0 to 1 for consistent comparison.
             <br /><br />
-            <span className="font-semibold block">What It Explains:</span>
+            <span className="font-bold block">What It Explains:</span>
             It provides a "fingerprint" for each cluster, showing the feature values that are most characteristic of that group. By looking across a row, you can quickly understand the unique profile of a cluster.
             <br /><br />
-            <span className="font-semibold block">Summary from the Chart:</span>
+            <span className="font-bold block">Summary from the Chart:</span>
             Darker cells indicate a higher average value for a feature within that cluster, while lighter cells indicate a lower average. By comparing the color patterns between rows (clusters), you can identify the key features that differentiate one group from another, giving you a clear narrative for what the model has discovered.
         </CardDescription>
       </CardHeader>
