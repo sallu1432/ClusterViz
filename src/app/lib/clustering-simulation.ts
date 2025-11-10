@@ -1,3 +1,4 @@
+
 import { ClusteringResults } from "@/types";
 import { DATASETS } from "./datasets";
 
@@ -87,12 +88,12 @@ export const simulateClustering = (params: SimulationParams): ClusteringResults 
   let target_distribution: ClusteringResults['dataset_summary']['target_distribution'] = [];
 
   if (dataset === 'iris') {
-      n_samples = 150;
       n_features = datasetInfo.features.length;
+      const third = Math.floor(n_samples / 3);
       target_distribution = [
-          { name: 'Setosa', value: 50 },
-          { name: 'Versicolor', value: 50 },
-          { name: 'Virginica', value: 50 },
+          { name: 'Setosa', value: third },
+          { name: 'Versicolor', value: third },
+          { name: 'Virginica', value: n_samples - (third * 2) },
       ];
   }
 
