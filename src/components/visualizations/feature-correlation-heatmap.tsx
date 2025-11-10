@@ -56,7 +56,7 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
                             <tr className="border-b">
                                 <th className="p-2 border-r w-24"></th>
                                 {features.map((feature) => (
-                                    <th key={feature} className="p-2 text-sm font-medium text-muted-foreground" style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>
+                                    <th key={feature} className="p-2 text-sm font-medium text-muted-foreground text-center">
                                         <span className="truncate">{feature}</span>
                                     </th>
                                 ))}
