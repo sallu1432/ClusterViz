@@ -26,7 +26,7 @@ const SilhouettePlot = ({ data }: SilhouettePlotProps) => {
                     This chart shows the silhouette score for each cluster, answering the question: "How meaningful are my clusters?". A score near +1 indicates that the cluster is dense and well-separated from others. A score near 0 suggests overlapping clusters, and a negative score implies that samples might have been assigned to the wrong cluster.
                     <br /><br />
                     <span className="font-semibold block">Summary from the Chart:</span>
-                    Each bar represents a cluster's average silhouette score. The red dashed line shows the average score across all clusters, providing a quick quality benchmark. Look for clusters with scores well above the average as they are the most distinct.
+                    Each bar represents a cluster's average silhouette score. The dashed line shows the average score across all clusters, providing a quick quality benchmark. Look for clusters with scores well above the average as they are the most distinct.
                 </CardDescription>
             </CardHeader>
             <CardContent className="flex-grow flex flex-col justify-center">
