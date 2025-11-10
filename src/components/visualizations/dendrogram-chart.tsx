@@ -30,7 +30,7 @@ const DendrogramChart = ({ data }: DendrogramChartProps) => {
             This chart tells the story of how your data was grouped. Starting from individual points at the bottom, the algorithm merges the most similar points or groups as you move up. The height of the horizontal lines represents the "distance" or dissimilarity between the merged clusters.
             <br /><br />
             <span className="font-semibold block">Summary from the Diagram:</span>
-            Long vertical lines indicate that two very different groups were merged, often highlighting the most natural divisions in the data. The red dashed line shows the "cut-off" point where the algorithm stopped to form the number of clusters you selected. This reveals the structure of your data at different levels of similarity.
+            Long vertical lines indicate that two very different groups were merged, often highlighting the most natural divisions in the data. The dashed line shows the "cut-off" point where the algorithm stopped to form the number of clusters you selected. This reveals the structure of your data at different levels of similarity.
         </CardDescription>
       </CardHeader>
       <CardContent>
