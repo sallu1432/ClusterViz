@@ -3,7 +3,7 @@ export const DATASETS = {
   iris: {
     name: "Iris",
     domain: "🌸 Botany / Biology",
-    description: "A classic dataset in pattern recognition.",
+    description: "A classic dataset in pattern recognition. It contains 3 classes of 50 instances each, where each class refers to a type of iris plant.",
     features: ["sepal length (cm)", "sepal width (cm)", "petal length (cm)", "petal width (cm)"],
     feature_definitions: {
       "sepal length (cm)": "The length of the sepal. Sepals are the green, leaf-like parts of the flower that enclose the bud. This feature is a key indicator of the flower's size.",

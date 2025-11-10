@@ -80,9 +80,22 @@ export const simulateClustering = (params: SimulationParams): ClusteringResults 
   const { dataset, nClusters, features } = params;
   const datasetInfo = DATASETS[dataset];
 
-  const n_samples = randomInt(30, 50); // Use a smaller, randomized sample size
+  let n_samples = randomInt(30, 50);
   const usedFeatures = features.length > 0 ? features : datasetInfo.features;
-  const n_features = usedFeatures.length;
+  let n_features = usedFeatures.length;
+
+  let target_distribution: ClusteringResults['dataset_summary']['target_distribution'] = [];
+
+  if (dataset === 'iris') {
+      n_samples = 150;
+      n_features = datasetInfo.features.length;
+      target_distribution = [
+          { name: 'Setosa', value: 50 },
+          { name: 'Versicolor', value: 50 },
+          { name: 'Virginica', value: 50 },
+      ];
+  }
+
 
   const scatter_data_2d = generateScatterData(n_samples, nClusters);
   const cluster_labels = scatter_data_2d.map(p => p.cluster);
@@ -146,8 +159,6 @@ export const simulateClustering = (params: SimulationParams): ClusteringResults 
     })),
   }));
 
-  // Target distribution is less relevant with random sample sizes, so we can simplify.
-  const target_distribution: ClusteringResults['dataset_summary']['target_distribution'] = [];
 
   return {
     dataset_summary: {

@@ -18,7 +18,7 @@ const DatasetOverview = ({ summary }: DatasetOverviewProps) => {
     <Card>
       <CardHeader>
         <CardTitle>Dataset Overview</CardTitle>
-        <CardDescription className="line-clamp-3">{description}</CardDescription>
+        <CardDescription className="line-clamp-none">{description}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-2 gap-4 text-center mb-4">
