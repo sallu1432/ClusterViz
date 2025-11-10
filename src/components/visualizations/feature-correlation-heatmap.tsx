@@ -27,7 +27,7 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
   return (
     <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
-        <CardTitle>How Do the Features Relate?</CardTitle>
+        <CardTitle>Feature Correlation Heatmap</CardTitle>
         <CardDescription>This heatmap shows how your features interact with each other. Bright red means two features have a strong positive correlation (when one goes up, the other tends to go up). Bright blue indicates a strong negative correlation (when one goes up, the other tends to go down). This is important because highly correlated features can sometimes be redundant, and understanding these relationships provides deeper context about the structure of your dataset before you even begin clustering.</CardDescription>
       </CardHeader>
       <CardContent className="pt-6 overflow-x-auto">
