@@ -30,6 +30,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  webpack(config) {
+    config.watchOptions = {
+      ...config.watchOptions,
+      ignored: /next\.config\.ts/,
+    };
+    return config;
+  },
 };
 
 export default nextConfig;
