@@ -15,11 +15,11 @@ const getColors = (value: number) => {
   const saturation = 70;
   const lightness = 95 - (value * 50); // Lighter for lower values, darker for higher
   
-  const isDarkTheme = document.documentElement.classList.contains('dark');
+  const isDarkTheme = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
   
   let textColor = 'hsl(var(--foreground))';
   if (isDarkTheme) {
-    if (lightness > 70) {
+    if (lightness > 65) {
       textColor = 'hsl(224 71.4% 4.1%)'; // dark text for very light cells
     } else {
       textColor = 'hsl(var(--card-foreground))'; // light text for darker cells
@@ -56,7 +56,7 @@ const ClusterHeatmap = ({ data }: ClusterHeatmapProps) => {
             It provides a "fingerprint" for each cluster, showing the feature values that are most characteristic of that group. By looking across a row, you can quickly understand the unique profile of a cluster.
             <br /><br />
             <span className="font-bold block">Summary from the Chart:</span>
-            Darker cells indicate a higher average value for a feature within that cluster, while lighter cells indicate a lower average. By comparing the color patterns between rows (clusters), you can identify the key features that differentiate one group from another, giving you a clear narrative for what the model has discovered.
+            Darker cells indicate a higher average value for a feature within that cluster, while lighter cells indicate a lower average. For example, if "Cluster 0" has a dark cell (e.g., 0.9) for "petal length" and "Cluster 1" has a light cell (e.g., 0.1), it strongly suggests that petal length is a key differentiator between these two groups.
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-6">

@@ -27,10 +27,10 @@ const DendrogramChart = ({ data }: DendrogramChartProps) => {
             A dendrogram is a tree diagram that illustrates the arrangement of clusters produced by hierarchical clustering.
             <br /><br />
             <span className="font-bold block">What It Explains:</span>
-            This chart tells the story of how your data was grouped. Starting from individual points at the bottom, the algorithm merges the most similar points or groups as you move up. The height of the horizontal lines represents the "distance" or dissimilarity between the merged clusters.
+            This chart tells the story of how your data was grouped. Starting from individual points at the bottom (distance = 0), the algorithm merges the most similar points or groups as you move up. The height of the horizontal lines represents the "distance" or dissimilarity between the merged clusters.
             <br /><br />
             <span className="font-bold block">Summary from the Diagram:</span>
-            Long vertical lines indicate that two very different groups were merged, often highlighting the most natural divisions in the data. The dashed line shows the "cut-off" point where the algorithm stopped to form the number of clusters you selected. This reveals the structure of your data at different levels of similarity.
+            A long vertical line indicates that two distinct groups were merged; for example, a merge at a distance of 4.0 is more significant than a merge at 0.5. The dashed "Cluster Cutoff" line, perhaps at a distance of 2.5, shows where the tree is cut to form the final clusters you selected.
         </CardDescription>
       </CardHeader>
       <CardContent>

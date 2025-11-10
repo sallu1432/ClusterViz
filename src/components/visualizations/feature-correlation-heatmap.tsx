@@ -36,7 +36,7 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
             This chart shows how different features in your dataset relate to each other. It helps answer the question, "When one feature's value increases, what happens to another's?". Understanding these relationships provides deep context about the structure of your data.
             <br /><br />
             <span className="font-bold block">Summary from the Chart:</span>
-            Bright red cells indicate a strong positive correlation (as one feature increases, the other tends to increase). Bright blue indicates a strong negative correlation (as one increases, the other tends to decrease). This is useful for spotting redundant features and understanding which variables move together.
+            Bright red cells indicate a strong positive correlation (e.g., +0.9), meaning as one feature increases, the other tends to increase. Bright blue cells show a strong negative correlation (e.g., -0.8), meaning as one increases, the other decreases. This helps spot redundant features and understand which variables move together.
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-6 overflow-x-auto">
