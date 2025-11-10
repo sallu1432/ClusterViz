@@ -74,7 +74,7 @@ export default function IntroductionPage() {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                Hierarchical clustering creates a tree-based representation (a dendrogram) of the objects. This allows you to see the structure of the data at different levels of granularity, from individual points to large clusters, without pre-specifying the number of clusters.
+                Hierarchical clustering creates a tree-based representation (a dendrogram) of the objects. This allows you to see the structure of the data at different levels of granularity, from individual points to large clusters.
               </p>
             </CardContent>
           </Card>
