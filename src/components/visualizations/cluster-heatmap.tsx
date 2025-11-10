@@ -49,13 +49,13 @@ const ClusterHeatmap = ({ data }: ClusterHeatmapProps) => {
       <CardHeader>
         <CardTitle className="text-3xl font-bold tracking-tight">Cluster Heatmap</CardTitle>
         <CardDescription>
-            <span className="font-bold block mt-2">Definition:</span>
+            <span className="font-bold block mt-2 text-primary">Definition:</span>
             This heatmap visualizes the central tendency (mean) of each feature for each cluster. The values are typically scaled from 0 to 1 for consistent comparison.
             <br /><br />
-            <span className="font-bold block">What It Explains:</span>
+            <span className="font-bold block text-primary">What It Explains:</span>
             It provides a "fingerprint" for each cluster, showing the feature values that are most characteristic of that group. By looking across a row, you can quickly understand the unique profile of a cluster.
             <br /><br />
-            <span className="font-bold block">Summary from the Chart:</span>
+            <span className="font-bold block text-primary">Summary from the Chart:</span>
             Darker cells indicate a higher average value for a feature within that cluster, while lighter cells indicate a lower average. For example, if "Cluster 0" has a dark cell (e.g., 0.9) for "petal length" and "Cluster 1" has a light cell (e.g., 0.1), it strongly suggests that petal length is a key differentiator between these two groups.
         </CardDescription>
       </CardHeader>

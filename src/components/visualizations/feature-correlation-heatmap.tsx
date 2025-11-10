@@ -43,13 +43,13 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
       <CardHeader>
         <CardTitle className="text-3xl font-bold tracking-tight">Feature Correlation Heatmap</CardTitle>
         <CardDescription>
-            <span className="font-bold block mt-2">Definition:</span>
+            <span className="font-bold block mt-2 text-primary">Definition:</span>
             A correlation heatmap is a graphical representation of a correlation matrix, where the correlation coefficients between different variables are represented as colors.
             <br /><br />
-            <span className="font-bold block">What It Explains:</span>
+            <span className="font-bold block text-primary">What It Explains:</span>
             This chart shows how different features in your dataset relate to each other. It helps answer the question, "When one feature's value increases, what happens to another's?". Understanding these relationships provides deep context about the structure of your data.
             <br /><br />
-            <span className="font-bold block">Summary from the Chart:</span>
+            <span className="font-bold block text-primary">Summary from the Chart:</span>
             Bright red cells indicate a strong positive correlation (e.g., +0.9), meaning as one feature increases, the other tends to increase. Bright blue cells show a strong negative correlation (e.g., -0.8), meaning as one increases, the other decreases. This helps spot redundant features and understand which variables move together.
         </CardDescription>
       </CardHeader>
@@ -99,7 +99,7 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
         <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground w-64 mx-auto mt-4">
           <span className="font-mono">-1.0</span>
           <div className="flex-1 h-3 rounded-full overflow-hidden border">
-             <div style={{ background: 'linear-gradient(to right, hsl(210, 100, 25%), hsl(210, 100, 85%), white, hsl(0, 100%, 85%), hsl(0, 100%, 25%))' }} className="w-full h-full" />
+             <div style={{ background: 'linear-gradient(to right, hsl(210, 100%, 25%), hsl(210, 100%, 85%), white, hsl(0, 100%, 85%), hsl(0, 100%, 25%))' }} className="w-full h-full" />
           </div>
           <span className="font-mono">+1.0</span>
         </div>
