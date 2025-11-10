@@ -112,11 +112,30 @@ export const simulateClustering = (params: SimulationParams): ClusteringResults 
       }, {} as Record<string, number>),
     })),
   };
+  
+    const irisFeatures = ["sepal length (cm)", "sepal width (cm)", "petal length (cm)", "petal width (cm)"];
+    let correlationFeatures = usedFeatures.slice(0, 8);
 
+    if (dataset === 'iris' && irisFeatures.every(f => usedFeatures.includes(f))) {
+        const sortedIrisFeatures = irisFeatures;
+        const otherFeatures = usedFeatures.filter(f => !irisFeatures.includes(f));
+        correlationFeatures = [...sortedIrisFeatures, ...otherFeatures].slice(0, 8);
+    }
+  
   const feature_correlation: ClusteringResults['feature_correlation'] = {
-    features: usedFeatures.slice(0, 8),
-    matrix: Array.from({ length: 8 }, (_, i) => 
-      Array.from({ length: 8 }, (_, j) => i === j ? 1 : random(-1, 1))
+    features: correlationFeatures,
+    matrix: Array.from({ length: correlationFeatures.length }, (_, i) => 
+      Array.from({ length: correlationFeatures.length }, (_, j) => {
+          if (i === j) return 1;
+          // Simulate some known correlations for Iris
+          if (dataset === 'iris') {
+              const f1 = correlationFeatures[i];
+              const f2 = correlationFeatures[j];
+              if ((f1.includes('petal length') && f2.includes('petal width')) || (f1.includes('petal width') && f2.includes('petal length'))) return random(0.9, 0.98);
+              if ((f1.includes('petal') && f2.includes('sepal'))) return random(0.5, 0.87);
+          }
+          return random(-0.4, 0.4);
+      })
     ),
   };
 
