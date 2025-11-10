@@ -25,7 +25,7 @@ const ClusterHeatmap = ({ data }: ClusterHeatmapProps) => {
   return (
     <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
-        <CardTitle>Cluster Heatmap</CardTitle>
+        <CardTitle className="text-3xl font-bold tracking-tight text-destructive">Cluster Heatmap</CardTitle>
         <CardDescription>
             <span className="font-semibold block mt-2">Definition:</span>
             This heatmap visualizes the central tendency (mean) of each feature for each cluster. The values are typically scaled from 0 to 1 for consistent comparison.

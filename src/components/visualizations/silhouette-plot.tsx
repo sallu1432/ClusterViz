@@ -17,7 +17,7 @@ const SilhouettePlot = ({ data }: SilhouettePlotProps) => {
     return (
         <Card className="h-full shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
             <CardHeader>
-                <CardTitle>Silhouette Score</CardTitle>
+                <CardTitle className="text-3xl font-bold tracking-tight text-destructive">Silhouette Score</CardTitle>
                 <CardDescription>
                     <span className="font-semibold block mt-2">Definition:</span>
                     The Silhouette Score measures how similar a data point is to its own cluster compared to other clusters.

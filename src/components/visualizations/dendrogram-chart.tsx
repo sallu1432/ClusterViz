@@ -21,7 +21,7 @@ const DendrogramChart = ({ data }: DendrogramChartProps) => {
   return (
     <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
-        <CardTitle>Dendrogram</CardTitle>
+        <CardTitle className="text-3xl font-bold tracking-tight text-destructive">Dendrogram</CardTitle>
         <CardDescription>
             <span className="font-semibold block mt-2">Definition:</span>
             A dendrogram is a tree diagram that illustrates the arrangement of clusters produced by hierarchical clustering.

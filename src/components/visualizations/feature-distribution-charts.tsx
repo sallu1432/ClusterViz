@@ -15,7 +15,7 @@ const FeatureDistributionCharts = ({ data }: FeatureDistributionChartsProps) => 
   return (
     <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
         <CardHeader>
-            <CardTitle>Feature Distributions</CardTitle>
+            <CardTitle className="text-3xl font-bold tracking-tight text-destructive">Feature Distributions</CardTitle>
             <CardDescription>Histograms for the first 4 selected features.</CardDescription>
         </CardHeader>
         <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6">

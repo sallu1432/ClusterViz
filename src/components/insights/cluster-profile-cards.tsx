@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -13,7 +14,7 @@ const ClusterProfileCards = ({ data }: ClusterProfileCardsProps) => {
 
   return (
     <div>
-        <h2 className="text-2xl font-bold tracking-tight mb-4">Cluster Profiles</h2>
+        <h2 className="text-3xl font-bold tracking-tight text-destructive mb-4">Cluster Profiles</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {data.map(cluster => (
             <Card key={cluster.clusterId}>
