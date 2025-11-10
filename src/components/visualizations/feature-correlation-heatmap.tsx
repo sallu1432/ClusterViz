@@ -27,7 +27,7 @@ const FeatureCorrelationHeatmap = ({ data }: FeatureCorrelationHeatmapProps) => 
   return (
     <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
-        <CardTitle className="text-3xl font-bold tracking-tight text-destructive">Feature Correlation Heatmap</CardTitle>
+        <CardTitle className="text-3xl font-bold tracking-tight">Feature Correlation Heatmap</CardTitle>
         <CardDescription>
             <span className="font-semibold block mt-2">Definition:</span>
             A correlation heatmap is a graphical representation of a correlation matrix, where the correlation coefficients between different variables are represented as colors.
