@@ -37,19 +37,19 @@ ClusterViz provides several key visualizations to help you interpret the cluster
 
 A tree diagram illustrating how data points are merged into clusters. The y-axis represents the distance between clusters; long vertical lines indicate that two very different clusters were merged.
 
-![Screenshot of the Dendrogram](https://picsum.photos/seed/dendrogram/1200/600)
+
 
 ### Silhouette Score Plot
 
 This chart measures cluster quality on a scale from -1 to 1. High scores indicate that clusters are dense and well-separated. Scores near 0 suggest overlapping clusters.
 
-![Screenshot of the Silhouette Plot](https://picsum.photos/seed/silhouette/1200/600)
+
 
 ### Cluster & Feature Heatmaps
 
 These heatmaps use color intensity to show the average value of each feature within a cluster or the correlation between different features. They help reveal the "fingerprint" that defines each group.
 
-![Screenshot of Heatmaps](https://picsum.photos/seed/heatmaps/1200/600)
+
 
 ## Getting Started
 
