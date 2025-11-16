@@ -7,6 +7,16 @@ ClusterViz is an interactive web application designed to help users explore and 
 <div align="center" style="display: flex; justify-content: center; gap: 10px;"> <img src="public/page 1.png" alt="Beginner Interface 1" width="400"/> <img src="public/page 2.png" alt="Beginner Interface 2" width="400"/> <img src="public/page 3.png" alt="Beginner Interface 1" width="400"/> <img src="public/page 4.png" alt="Beginner Interface 1" width="400"/> <img src="public/page 5.png" alt="Beginner Interface 1" width="400"/> <img src="public/page 6.png" alt="Beginner Interface 1" width="400"/> <img src="public/page 7.png" alt="Beginner Interface 1" width="400"/> <img src="public/page 8.png" alt="Beginner Interface 1" width="400"/></div>
 
 ---
+
+## 👥 Team Members
+
+| Name | Role | Contribution |
+|------|------|--------------|
+|Salman Ahmed| Developer | Implemented the UI, dendrogram visualization, cluster configuration panels, and interactive parameter controls (linkage method, distance metrics). |
+|Ayush Mishra| Developer | Built the clustering pipeline, including hierarchical tree construction, cluster cutting logic, and comparison section for different linkage methods. |
+|Shravan Tiberawal| Data/Logic | Prepared dataset preprocessing, feature extraction, distance matrix computation, and integrated hierarchical clustering algorithms. |
+|Ganesh Rathod| Designer | Designed UI/UX flow, visual aesthetics for dendrograms, icons, and smooth animation transitions for cluster expansion/collapse. |
+
 ## Core Features
 
 -   **Interactive Dashboard**: A clean and intuitive interface for data exploration.
