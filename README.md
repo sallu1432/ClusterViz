@@ -1,9 +1,12 @@
 # ClusterViz: Interactive Hierarchical Clustering
 
 ClusterViz is an interactive web application designed to help users explore and understand datasets through hierarchical clustering. It allows for on-the-fly parameter adjustment, visualizes complex data structures with dendrograms and heatmaps, and provides insights into the patterns hidden within the data.
+## 🖼 Project Preview
 
-![Screenshot of the ClusterViz Dashboard](https://picsum.photos/seed/dashboard/1200/800)
+🧩 Beginner View
+<div align="center" style="display: flex; justify-content: center; gap: 10px;"> <img src="public/page 1.png" alt="Beginner Interface 1" width="400"/> <img src="public/page 2.png" alt="Beginner Interface 2" width="400"/> <img src="public/page 3.png" alt="Beginner Interface 1" width="400"/> <img src="public/page 4.png" alt="Beginner Interface 1" width="400"/> <img src="public/page 5.png" alt="Beginner Interface 1" width="400"/> <img src="public/page 6.png" alt="Beginner Interface 1" width="400"/> <img src="public/page 7.png" alt="Beginner Interface 1" width="400"/> <img src="public/page 8.png" alt="Beginner Interface 1" width="400"/></div>
 
+---
 ## Core Features
 
 -   **Interactive Dashboard**: A clean and intuitive interface for data exploration.
